@@ -9,3 +9,6 @@ K-Nearest-Centroid
 Dimension reduction with PCA, LDA
 
 Finally, the clustering method was used in the same data
+
+
+In each project there are folders for each dataset, with the code in Python 3.7 and the images with the results of the experiments.
