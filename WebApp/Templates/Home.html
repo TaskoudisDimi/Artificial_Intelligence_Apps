@@ -7,10 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <a> AI app </a>
 
-
-
+    <form action="{{ url_for('IrisText') }}" method="get">
+        <button type="submit">Iris Text</button>
+    </form>
     
+    <form action="{{ url_for('IrisImage') }}" method="get">
+        <button type="submit">Iris Image</button>
+    </form>
+    
+<button>Mnist</button>
+<button>Breast Cancer</button>
+
 </body>
 </html>
