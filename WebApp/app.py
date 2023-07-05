@@ -3,12 +3,56 @@ import pickle
 import numpy as np
 from PIL import Image
 from watchdog.events import EVENT_TYPE_OPENED
+import cv2 as cv
 
 app = Flask(__name__)
 
-# load pre-trained model
-with open('D:/Neural_Projects/Computational-Intelligence-and-Statistical-Learning-master/1st_project (SVM)/Iris/svm_model.pkl','rb') as f:
-    clf = pickle.load(f)
+#########################################################
+import tensorflow as tf
+import tensorflow_hub as hub
+from tensorflow import keras
+
+images = cv.imread('Iris', 'path')
+
+X, y = [], [] # X = images, y = labels
+
+for image in images:
+        img = cv.imread(str(image))
+        resized_img = cv.resize(img, (224, 224)) # Resizing the images to be able to pass on MobileNetv2 model
+        X.append(resized_img)
+        y.append(df_labels[label])
+print(len(X), len(y))
+
+normalizer = tf.keras.layers.Rescaling(scale=1/255)
+mobile_net = 'https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/4' # MobileNetv4 link
+mobile_net = hub.KerasLayer(
+        mobile_net, input_shape=(224,224, 3), trainable=False) # Removing the last layer
+
+num_label = len(np.unique(y)) # number of labels
+
+modelImage = keras.Sequential([
+    keras.Input(shape=(224,224,3)),
+    normalizer,
+    mobile_net,
+    keras.layers.Dropout(0.2),
+    keras.layers.Dense(num_label, activation='softmax')
+])
+    
+
+# Load the model weights from file
+modelImage.load_weights("/content/drive/MyDrive/Programming/AI/model.h5")
+
+# Print model summary
+modelImage.summary()
+
+
+#########################################################
+
+
+# Model based on Text classification
+# # load pre-trained model
+# with open('D:/Neural_Projects/Computational-Intelligence-and-Statistical-Learning-master/1st_project (SVM)/Iris/svm_model.pkl','rb') as f:
+#     clf = pickle.load(f)
 
 # x_test_data1 = [5.1,3.5,1.4,0.2]
 # x_test_data3 = [6.8, 2.8,4.8,1.4]
