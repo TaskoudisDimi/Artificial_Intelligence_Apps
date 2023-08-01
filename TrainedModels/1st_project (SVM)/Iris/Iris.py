@@ -9,6 +9,8 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.svm import SVC
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import classification_report, confusion_matrix
+import joblib
+
 
 iris = datasets.load_iris()
 X = iris.data
@@ -31,11 +33,11 @@ X_test_scaled = scaler.fit_transform(X_test)
 #time measurement
 now = datetime.datetime.now()
 #NearestCentoid
-#clf = NearestCentroid(shrink_threshold= 0.5)
+clf = NearestCentroid(shrink_threshold= 0.5)
 #KNN
-#clf = neighbors.KNeighborsClassifier(n_neighbors = 5, weights='uniform') 
+# clf = neighbors.KNeighborsClassifier(n_neighbors = 5, weights='uniform') 
 #SVM
-clf = SVC()
+# clf = SVC()
 clf.fit(X_train, y_train)
 y_predicted = clf.predict(X_test)
 parameters = [{'C': [0.1, 1, 10, 100], 'kernel': ['linear']}, 
@@ -55,4 +57,9 @@ print(grid.score(X_train, y_train), grid.score(X_test, y_test))
 print(classification_report(y_test, y_predicted))
 print (cm)
 
+
     
+
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/Nearest_model_iris.pkl'
+joblib.dump(clf, model_filename)
+

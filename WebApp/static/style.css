@@ -1,0 +1,22 @@
+
+        body {
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-warning,
+        .btn-danger {
+            margin: 10px;
+            font-size: 18px;
+            padding: 12px 20px;
+        }

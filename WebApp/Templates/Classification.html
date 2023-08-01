@@ -6,43 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Add custom CSS style -->
-    <style>
-        body {
-            background-color: #f7f7f7;
-        }
-
-        .container {
-            margin-top: 50px;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-        }
-
-        .btn-primary,
-        .btn-secondary,
-        .btn-warning,
-        .btn-danger {
-            margin: 10px;
-            font-size: 18px;
-            padding: 12px 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-    <div class="title text-center">These are some examples of <b>Classification</b> models</div>
+    <h2 class="title text-center">These are some examples of <b>Classification</b> models</h2>
 
     <div class="container">
         <div class="btn-container">
-            <button type="button" class="btn btn-primary">SVM</button>
-            <button type="submit" class="btn btn-primary">KNN</button>
-            <button type="button" class="btn btn-primary">K-Nearest-Centroid</button>
+            <form action="/Classification_Iris" method="get"><button type="submit" class="btn btn-primary">Iris</button></form>
+            <form action="/Classification_Mnist" method="get"><button type="submit" class="btn btn-primary">Mnist</button></form>
+            <form action="/Classification_BreastCancer" method="get"><button type="submit" class="btn btn-primary">Breast Cancer</button></form>
+            <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
         </div>
     </div>
-
+    
     <!-- Add Bootstrap and jQuery JS links -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

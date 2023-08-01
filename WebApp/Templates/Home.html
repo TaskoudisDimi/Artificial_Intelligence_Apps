@@ -6,40 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Add custom CSS style -->
-    <style>
-        body {
-            background-color: #f7f7f7;
-        }
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-        .container {
-            margin-top: 50px;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-        }
-
-        .btn-primary,
-        .btn-secondary,
-        .btn-warning,
-        .btn-danger {
-            margin: 10px;
-            font-size: 18px;
-            padding: 12px 20px;
-        }
-    </style>
 </head>
 <body>
 
-    <div class="title text-center">These are some examples of AI models</div>
+    <h2 class="title text-center">These are some examples of AI models</h2>
 
     <div class="container">
-        <!-- <h2 class="text-center">Beautiful Form with Buttons</h2> -->
         <div class="btn-container">
-            <button type="submit" class="btn btn-primary">Classification</button>
-            <button type="button" class="btn btn-primary">Regression</button>
+            <form action="/Classification" method="get"><button type="submit" class="btn btn-primary">Classification</button></form>
+            <form action="/Regression" method="get"><button type="submit" class="btn btn-primary">Regression</button></form>
+            <form action="/" method="get"><button type="submit" class="btn btn-primary">Computer Vision</button></form>
+            <form action="/" method="get"><button type="submit" class="btn btn-primary">Language Translation</button></form>
+            <form action="/" method="get"><button type="submit" class="btn btn-primary">Game</button></form>
         </div>
     </div>
 
