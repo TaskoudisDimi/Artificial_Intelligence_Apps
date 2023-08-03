@@ -10,18 +10,21 @@
 <body>
     <h3 class="title text-center">Set the features of a flower</h3>
     <div class="container text-center">
-        <form action="/ClassificationIris" method="POST">
-            <label>Sepal Length</label>
-            <input type="text" name="SepalLength"><br>
-            <label>Sepal Width</label>
-            <input type="text" name="SepalWidth"><br>
-            <label>Petal Length</label>
-            <input type="text" name="PetalLength"><br>
-            <label>Petal Width</label>
-            <input type="text" name="PetalWidth"><br>
+        <form action="/ClassificationBreastCancer" method="POST">
+            <label>Radius Mean</label>
+            <input type="text" name="Radius_Mean"><br>
+            <label>Texture Mean</label>
+            <input type="text" name="Texture_Mean"><br>
+            <label>Perimeter Mean</label>
+            <input type="text" name="Perimeter_Mean"><br>
+            <label>Area Mean</label>
+            <input type="text" name="Area_Mean"><br>
+            <label>Smoothness Mean</label>
+            <input type="text" name="Smoothness_Mean"><br>
+            <label>Compactness Mean</label>
+            <input type="text" name="Compactness_Mean"><br>
 
             <button type="submit" class="btn btn-primary" name="SVM">SVM</button>
-            <button type="submit" class="btn btn-primary" name="KNN">KNN</button>
             <button type="submit" class="btn btn-primary" name="KNearestCentroid">K-Nearest-Centroid</button>
             
         </form>

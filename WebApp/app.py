@@ -17,15 +17,23 @@ app = Flask(__name__, static_url_path='/static', static_folder='static')
 # with open('C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl','rb') as f:
 #     clf = pickle.load(f)
 
-# Load the SVM model from the file
+
 model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
-SVM_model = joblib.load(model_filename)
-# Load the KNN model from the file
+SVM_Iris_model = joblib.load(model_filename)
+
 model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
-KNN_model = joblib.load(model_filename)
-# Load the KNearestCentroid model from the file
+KNN_Iris_model = joblib.load(model_filename)
+
 model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
-KNearestCentroid_model = joblib.load(model_filename)
+KNearestCentroid_Iris_model = joblib.load(model_filename)
+
+
+
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/SVM_model_BreastCancer.pkl'
+SVM_BreastCancer_model = joblib.load(model_filename)
+
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/NearestCentroid_model_BreastCancer.pkl'
+NearestCentroid_BreastCancer_model = joblib.load(model_filename)
 
 
 
@@ -65,11 +73,11 @@ def ClassificationIris():
         input_data = np.array([SepalLength, SepalWidth, PetalLength, PetalWidth]).reshape(1, -1)
 
         if 'SVM' in request.form:
-            prediction = SVM_model.predict(input_data)
+            prediction = SVM_Iris_model.predict(input_data)
         elif 'KNN' in request.form:
-            prediction = SVM_model.predict(input_data)
+            prediction = KNN_Iris_model.predict(input_data)
         elif 'KNearestCentroid' in request.form:
-            prediction = SVM_model.predict(input_data)
+            prediction = KNearestCentroid_Iris_model.predict(input_data)
 
         if(prediction is None):
             return render_template('Classification_Iris.html')
@@ -89,9 +97,63 @@ def ClassificationIris():
         return render_template('Classification_Iris.html', message=message)
 
 
-@app.route('/Classification_BreastCancer')
+@app.route('/Classification_BreastCancer', methods=['GET'])
 def Classification_BreastCancer():
     return render_template('Classification_BreastCancer.html')
+
+
+@app.route('/ClassificationBreastCancer', methods=['POST'])
+def ClassificationBreastCancer():
+    try:
+
+        # # Example input array with 6 features (replace with your own input data)
+        # input_data = np.array([[17.99, 10.38, 122.8, 1001, 0.1184, 0.2776]])
+        
+        # Extract the input data from the HTML form
+        Radius_Mean = request.form.get('Radius_Mean')
+        Texture_Mean = request.form.get('Texture_Mean')
+        Perimeter_Mean = request.form.get('Perimeter_Mean')
+        Area_Mean = request.form.get('Area_Mean')
+        Smoothness_Mean = request.form.get('Smoothness_Mean')
+        Compactness_Mean = request.form.get('Compactness_Mean')
+
+        # Check if any of the features are null or empty strings
+        if not all([Radius_Mean, Texture_Mean, Perimeter_Mean, Area_Mean, Smoothness_Mean, Compactness_Mean]):
+            message = "Please set all the features"
+            return render_template('Classification_BreastCancer.html', message=message)
+        
+        # Convert features to floats if they are not null or empty strings
+        Radius_Mean = float(Radius_Mean)
+        Texture_Mean = float(Texture_Mean)
+        Perimeter_Mean = float(Perimeter_Mean)
+        Area_Mean = float(Area_Mean)
+        Smoothness_Mean = float(Smoothness_Mean)
+        Compactness_Mean = float(Compactness_Mean)
+
+        input_data = np.array([Radius_Mean, Texture_Mean, Perimeter_Mean, Area_Mean, Smoothness_Mean, Compactness_Mean]).reshape(1, -1)
+
+        if 'SVM' in request.form:
+            prediction = SVM_BreastCancer_model.predict(input_data)
+        elif 'KNearestCentroid' in request.form:
+            prediction = NearestCentroid_BreastCancer_model.predict(input_data)
+        
+
+        if(prediction is None):
+            return render_template('Classification_BreastCancer.html')
+        else:
+            result = int(prediction[0])
+            if(result == 0):
+                result = "Benign"
+            else:
+                result = "Malignant"
+            return render_template('Classification_BreastCancer.html', result=result)
+        
+        
+    except (ValueError, TypeError) as e:
+        message = "Invalid input format. Please provide valid numeric values for all features."
+        return render_template('Classification_BreastCancer.html', message=message)
+
+
 
 
 
