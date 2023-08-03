@@ -10,36 +10,36 @@
 <body>
     <h3 class="title text-center">Set the features of a flower</h3>
     <div class="container text-center">
-        <form action="/predictIrisSVM" method="POST">
-            <label>Feature 1:</label>
-            <input type="text" name="feature1"><br>
-            <label>Feature 2:</label>
-            <input type="text" name="feature2"><br>
-            <label>Feature 3:</label>
-            <input type="text" name="feature3"><br>
-            <label>Feature 4:</label>
-            <input type="text" name="feature4"><br>
-            <button type="submit" class="btn btn-primary">Predict</button>
+        <form action="/ClassificationIris" method="POST">
+            <label>Sepal Length</label>
+            <input type="text" name="SepalLength"><br>
+            <label>Sepal Width</label>
+            <input type="text" name="SepalWidth"><br>
+            <label>Petal Length</label>
+            <input type="text" name="PetalLength"><br>
+            <label>Petal Width</label>
+            <input type="text" name="PetalWidth"><br>
+
+            <button type="submit" class="btn btn-primary" name="SVM">SVM</button>
+            <button type="submit" class="btn btn-primary" name="KNN">KNN</button>
+            <button type="submit" class="btn btn-primary" name="KNearestCentroid">K-Nearest-Centroid</button>
+            
         </form>
+        <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
         <form action="/Classification" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
     </div>
 
     {% if message %}
         <p>{{ message }}</p>
     {% endif %}
-
+    
+    {% if result %}
+        <h4 class="text-center">The predicted class is: {{ result }}</h4>
+    {% endif %}
 
     <div class="title text-center">These are some examples of <b>Classification</b> models</div>
 
-    <div class="container">
-        <div class="btn-container">
-            <form action="/SVM_Classification" method="get"><button type="submit" class="btn btn-primary">SVM</button></form>
-            <form action="/KNN" method="get"><button type="submit" class="btn btn-primary">KNN</button></form>
-            <form action="/K_Nearest_Centroid" method="get"><button type="submit" class="btn btn-primary">K-Nearest-Centroid</button></form>
-            <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
-        </div>
-    </div>
-    
+  
     <!-- Add Bootstrap and jQuery JS links -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

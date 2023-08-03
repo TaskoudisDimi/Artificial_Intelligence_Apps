@@ -19,10 +19,14 @@ app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 # Load the SVM model from the file
 model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
-svm_model = joblib.load(model_filename)
+SVM_model = joblib.load(model_filename)
+# Load the KNN model from the file
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
+KNN_model = joblib.load(model_filename)
+# Load the KNearestCentroid model from the file
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
+KNearestCentroid_model = joblib.load(model_filename)
 
-# x_test_data1 = [5.1,3.5,1.4,0.2]
-# x_test_data3 = [6.8, 2.8,4.8,1.4]
 
 
 @app.route('/')
@@ -34,17 +38,77 @@ def home():
 def Classification():
     return render_template('Classification.html')
 
-@app.route('/Classification_Iris')
+@app.route('/Classification_Iris', methods=['GET'])
 def Classification_Iris():
     return render_template('Classification_Iris.html')
+
+@app.route('/ClassificationIris', methods=['POST'])
+def ClassificationIris():
+    try:
+        # Extract the input data from the HTML form
+        SepalLength = request.form.get('SepalLength')
+        SepalWidth = request.form.get('SepalWidth')
+        PetalLength = request.form.get('PetalLength')
+        PetalWidth = request.form.get('PetalWidth')
+
+        # Check if any of the features are null or empty strings
+        if not all([SepalLength, SepalWidth, PetalLength, PetalWidth]):
+            message = "Please set all the features"
+            return render_template('Classification_Iris.html', message=message)
+        
+        # Convert features to floats if they are not null or empty strings
+        SepalLength = float(SepalLength)
+        SepalWidth = float(SepalWidth)
+        PetalLength = float(PetalLength)
+        PetalWidth = float(PetalWidth)
+        
+        input_data = np.array([SepalLength, SepalWidth, PetalLength, PetalWidth]).reshape(1, -1)
+
+        if 'SVM' in request.form:
+            prediction = SVM_model.predict(input_data)
+        elif 'KNN' in request.form:
+            prediction = SVM_model.predict(input_data)
+        elif 'KNearestCentroid' in request.form:
+            prediction = SVM_model.predict(input_data)
+
+        if(prediction is None):
+            return render_template('Classification_Iris.html')
+        else:
+            result = int(prediction[0])
+            if(result == 0):
+                result = "Setosa"
+            elif result == 1:
+                result = "Versicolor"
+            else:
+                result = "Virginica"
+            return render_template('Classification_Iris.html', result=result)
+        
+        
+    except (ValueError, TypeError) as e:
+        message = "Invalid input format. Please provide valid numeric values for all features."
+        return render_template('Classification_Iris.html', message=message)
+
+
+@app.route('/Classification_BreastCancer')
+def Classification_BreastCancer():
+    return render_template('Classification_BreastCancer.html')
+
+
+
+
 
 @app.route('/Classification_Mnist')
 def Classification_Mnist():
     return render_template('Classification_Mnist.html')
 
-@app.route('/Classification_BreastCancer')
-def Classification_BreastCancer():
-    return render_template('Classification_BreastCancer.html')
+
+
+
+
+
+
+
+
 
 
 @app.route('/Regression')
@@ -57,41 +121,44 @@ def Clustering():
     return render_template('Clustering.html')
 
 
-@app.route('/predictIrisSVM', methods=['POST'])
-def predictIrisSVM():
-    try:
-        # Extract the input data from the HTML form
-        feature1 = request.form.get('feature1')
-        feature2 = request.form.get('feature2')
-        feature3 = request.form.get('feature3')
-        feature4 = request.form.get('feature4')
 
-        # Check if any of the features are null or empty strings
-        if not all([feature1, feature2, feature3, feature4]):
-            message = "Please set all the features"
-            return render_template('SVM_Iris_Classification.html', message=message)
+
+
+
+
+
+# @app.route('/predictIrisSVM', methods=['POST'])
+# def predictIrisSVM():
+#     try:
+#         # Extract the input data from the HTML form
+#         feature1 = request.form.get('feature1')
+#         feature2 = request.form.get('feature2')
+#         feature3 = request.form.get('feature3')
+#         feature4 = request.form.get('feature4')
+
+#         # Check if any of the features are null or empty strings
+#         if not all([feature1, feature2, feature3, feature4]):
+#             message = "Please set all the features"
+#             return render_template('SVM_Iris_Classification.html', message=message)
         
-        # Convert features to floats if they are not null or empty strings
-        feature1 = float(feature1)
-        feature2 = float(feature2)
-        feature3 = float(feature3)
-        feature4 = float(feature4)
+#         # Convert features to floats if they are not null or empty strings
+#         feature1 = float(feature1)
+#         feature2 = float(feature2)
+#         feature3 = float(feature3)
+#         feature4 = float(feature4)
         
-        input_data = np.array([feature1, feature2, feature3, feature4]).reshape(1, -1)
-        prediction = svm_model.predict(input_data)
-        return render_template('Results.html', result=int(prediction[0]))
+#         input_data = np.array([feature1, feature2, feature3, feature4]).reshape(1, -1)
+#         prediction = svm_model.predict(input_data)
+#         return render_template('Results.html', result=int(prediction[0]))
         
-    except (ValueError, TypeError) as e:
-        message = "Invalid input format. Please provide valid numeric values for all features."
-        return render_template('SVM_Iris_Classification.html', message=message)
+#     except (ValueError, TypeError) as e:
+#         message = "Invalid input format. Please provide valid numeric values for all features."
+#         return render_template('SVM_Iris_Classification.html', message=message)
        
         
-
-
-
-@app.route('/IrisImage', methods = ['GET'])
-def IrisImage():
-    return render_template('IrisImage.html')
+# @app.route('/IrisImage', methods = ['GET'])
+# def IrisImage():
+#     return render_template('IrisImage.html')
 
 # @app.route('/predictImage', methods=['POST'])
 # def predict():
