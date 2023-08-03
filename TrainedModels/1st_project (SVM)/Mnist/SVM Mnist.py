@@ -1,60 +1,72 @@
+
+#############################################################################################
 import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import validation_curve
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import GridSearchCV
 import matplotlib.pyplot as plt
-from sklearn import datasets, svm, metrics
-from sklearn import decomposition
-import time 
-from sklearn.datasets import fetch_openml
+import seaborn as sns
+from sklearn import metrics
+from sklearn.metrics import confusion_matrix
+import joblib
 
-# Load data from OpenML repository
-mnist = fetch_openml(name='mnist_784', version=1)
 
-# Extract features and labels
-X, y = mnist['data'], mnist['target']
+train_data = pd.read_csv("C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/1st_project (SVM)/Mnist/data/mnist_train.csv")
+test_data = pd.read_csv("C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/1st_project (SVM)/Mnist/data/mnist_test.csv")
 
-# Convert labels to binary (even=0, odd=1)
-y = np.array([int(label) % 2 for label in y])
 
-# train data = 60,000
-X_train, y_train = X[:60000] / 255.0, y[:60000]
 
-# Finding components through PCA, variance explained
-pca = decomposition.PCA(n_components=100, svd_solver='full')
-pca.fit(X_train)
-print(np.sum(pca.explained_variance_ratio_))
+round(train_data.drop('label', axis=1).mean(), 2)
 
-# Fitting the new dimensions to the train-set.
-train_ext = pca.transform(X_train)
+## Separating the X and Y variable
 
-# calculation time fitting for SVM
-start = int(round(time.time() * 1000))
+y = train_data['label']
 
-# Import SVM
-classifier = svm.SVC(gamma=0.1, C=2, kernel='rbf')
-classifier.fit(train_ext, y_train)
+## Dropping the variable 'label' from X variable 
+X = train_data.drop(columns = 'label')
 
-end = int(round(time.time() * 1000))
-print("--SVM fitting finished in ", (end-start), "ms")
+## Printing the size of data 
+print(train_data.shape)
 
-# test data = 10,000
-X_test, y_test = X[60000:] / 255.0, y[60000:]
 
-# Fitting the new dimensions.
-test_ext = pca.transform(X_test)
+## Normalization
 
-expected = y_test
-predicted = classifier.predict(test_ext)
+X = X/255.0
+test_data = test_data/255.0
 
-# Report for results and confusion matrix
-print("Classification report for classifier %s:\n%s\n"
-      % (classifier, metrics.classification_report(expected, predicted)))
-print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
+print("X:", X.shape)
+print("test_data:", test_data.shape)
 
-# Illustrate some right and wrong predictions
-for i in np.random.choice(np.arange(0, len(expected)), size=(3,)):
-    pred = classifier.predict(np.atleast_2d(test_ext[i]))
-    image = (X_test[i] * 255).reshape((28, 28)).astype("uint8")
-    plt.figure()
-    plt.axis("off")
-    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
-    plt.title("Actual digit is {0}, predicted {1}".format(expected[i], pred[0]))
-plt.show()
+
+# scaling the features
+from sklearn.preprocessing import scale
+X_scaled = scale(X)
+
+# train test split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size = 0.3, train_size = 0.2 ,random_state = 10)
+
+model = SVC(C=10, gamma=0.001, kernel="rbf")
+
+# fit
+model.fit(X_train, y_train)
+
+# predict
+y_pred = model.predict(X_test)
+
+# metrics
+print("accuracy", metrics.accuracy_score(y_test, y_pred), "\n")
+print(metrics.confusion_matrix(y_test, y_pred), "\n")
+
+
+
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/SVM_model_Mnist.pkl'
+joblib.dump(model, model_filename)
+
+
+
+

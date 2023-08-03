@@ -58,3 +58,144 @@ plt.scatter(X_spec[:, 0], X_spec[:, 1], c=y_pred, s=50, cmap=plt.cm.get_cmap("je
 plt.colorbar(ticks=range(10))
 plt.clim(-0.5,9.5)
 plt.show()
+
+
+
+###########################################
+# from keras.datasets import mnist
+# from sklearn import metrics
+# (x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+# import numpy as np
+
+
+# x_train = x_train.astype('float32') 
+# x_test = x_test.astype('float32') 
+# # Normalization
+# x_train = x_train/255.0
+# x_test = x_test/255.0
+
+
+
+# X_train = x_train.reshape(len(x_train),-1)
+# X_test = x_test.reshape(len(x_test),-1)
+
+
+# from sklearn.cluster import MiniBatchKMeans
+# total_clusters = len(np.unique(y_test))
+# # Initialize the K-Means model
+# kmeans = MiniBatchKMeans(n_clusters = total_clusters)
+# # Fitting the model to training set
+# kmeans.fit(X_train)
+
+# def retrieve_info(cluster_labels,y_train):
+#     reference_labels = {}
+#     # For loop to run through each label of cluster label
+#     for i in range(len(np.unique(kmeans.labels_))):
+#         index = np.where(cluster_labels == i,1,0)
+#         num = np.bincount(y_train[index==1]).argmax()
+#         reference_labels[i] = num
+#     return reference_labels
+
+
+# reference_labels = retrieve_info(kmeans.labels_,y_train)
+# number_labels = np.random.rand(len(kmeans.labels_))
+# for i in range(len(kmeans.labels_)):
+#   number_labels[i] = reference_labels[kmeans.labels_[i]]
+
+# print(number_labels[:20].astype('int'))
+# print(y_train[:20])
+
+# from sklearn.metrics import accuracy_score
+# print(accuracy_score(number_labels,y_train))
+
+# # Function to calculate metrics for the model
+# def calculate_metrics(model,output):
+#  print("Number of clusters is {}'".format(model.n_clusters))
+#  print("Inertia : {}".format(model.inertia_))
+#  print("Homogeneity :       {}".format(metrics.homogeneity_score(output,model.labels_)))
+
+
+# from sklearn import metrics
+# cluster_number = [10,16,36,64,144,256]
+# for i in cluster_number:
+#     total_clusters = len(np.unique(y_test))
+
+#     kmeans = MiniBatchKMeans(n_clusters = i)
+
+#     kmeans.fit(X_train)
+
+ 
+# calculate_metrics(kmeans,y_train)
+# # Calculating reference_labels
+# reference_labels = retrieve_info(kmeans.labels_,y_train)
+# # ‘number_labels’ is a list which denotes the number displayed in image
+# number_labels = np.random.rand(len(kmeans.labels_))
+# for i in range(len(kmeans.labels_)):
+ 
+#  number_labels[i] = reference_labels[kmeans.labels_[i]]
+ 
+# print("Accuracy score : {}".format(accuracy_score(number_labels,y_train)))
+
+
+
+# # Testing model on Testing set
+# # Initialize the K-Means model
+# kmeans = MiniBatchKMeans(n_clusters = 256)
+# # Fitting the model to testing set
+# kmeans.fit(X_test)
+# # Calculating the metrics
+# calculate_metrics(kmeans,y_test)
+# # Calculating the reference_labels
+# reference_labels = retrieve_info(kmeans.labels_,y_test)
+# # ‘number_labels’ is a list which denotes the number displayed in image
+# number_labels = np.random.rand(len(kmeans.labels_))
+# for i in range(len(kmeans.labels_)):
+ 
+#  number_labels[i] = reference_labels[kmeans.labels_[i]]
+ 
+# print("Accuracy score : {}".format(accuracy_score(number_labels,y_test)))
+
+
+# # Cluster centroids is stored in ‘centroids’
+# centroids = kmeans.cluster_centers_
+
+# centroids = centroids.reshape(256,28,28)
+
+# centroids = centroids * 255
+
+
+
+
+
+# # RGB image is converted to Monochrome image
+# from skimage import color
+# from skimage import io
+# image = color.rgb2gray(io.imread("C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/1st_project (SVM)/Mnist/6.png"))
+
+# # Reshaping into a row vector
+# image = image.reshape(1,28*28)
+# # Importing the dataset from keras
+# from keras.datasets import mnist
+# (x_train, y_train), (x_test, y_test) = mnist.load_data()
+# # Normalization of ‘x_train’
+# x_train = x_train.astype('float32')
+# x_train = x_train/255.0
+# x_train = x_train.reshape(60000,28*28)
+
+# # Training the model
+# kmeans = MiniBatchKMeans(n_clusters=256)
+# kmeans.fit(x_train)
+
+
+# reference_labels = retrieve_info(kmeans.labels_,y_train)
+# number_labels = np.random.rand(len(kmeans.labels_))
+# for i in range(len(kmeans.labels_)):
+#   number_labels[i] = reference_labels[kmeans.labels_[i]]
+
+
+# predicted_cluster = kmeans.predict(image)
+
+# print(number_labels[[predicted_cluster]])
+
+
