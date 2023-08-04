@@ -1,13 +1,25 @@
 from flask import Flask,request, jsonify, render_template
 import pickle
 import numpy as np
-from PIL import Image
 from watchdog.events import EVENT_TYPE_OPENED
 import cv2 as cv
 import joblib
+import json
+import torch
+from PIL import Image, ImageChops, ImageOps
+from torchvision import transforms
+
 
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
+
+
+
+from model import Model
+from train import SAVE_MODEL_PATH
+
+
+
 
 # Model based on Text classification
 # load pre-trained model
@@ -97,13 +109,13 @@ def ClassificationIris():
         return render_template('Classification_Iris.html', message=message)
 
 
-@app.route('/Classification_BreastCancer', methods=['GET'])
-def Classification_BreastCancer():
-    return render_template('Classification_BreastCancer.html')
+# @app.route('/Classification_BreastCancer', methods=['GET'])
+# def Classification_BreastCancer():
+#     return render_template('Classification_BreastCancer.html')
 
 
-@app.route('/ClassificationBreastCancer', methods=['POST'])
-def ClassificationBreastCancer():
+# @app.route('/ClassificationBreastCancer', methods=['POST'])
+# def ClassificationBreastCancer():
     try:
 
         # # Example input array with 6 features (replace with your own input data)
@@ -142,6 +154,7 @@ def ClassificationBreastCancer():
             return render_template('Classification_BreastCancer.html')
         else:
             result = int(prediction[0])
+            print(result)
             if(result == 0):
                 result = "Benign"
             else:
@@ -155,22 +168,45 @@ def ClassificationBreastCancer():
 
 
 
-
-
-
-
-@app.route('/Classification_Mnist')
-def Classification_Mnist():
-    return render_template('Classification_Mnist.html')
-
+# @app.route('/Classification_Mnist')
+# def Classification_Mnist():
+#     return render_template('Classification_Mnist.html')
 
 
 
 
 
 
+@app.route('/CNN', methods=['GET'])
+def CNN():
+    return render_template('CNN.html')
 
 
+@app.route('/CNN_MNIST', methods=['GET'])
+def CNN_MNIST():
+    return render_template('CNN_MNIST.html')
+
+@app.route('/CNN_MNIST_Up_image', methods=['GET'])
+def CNN_MNIST_Up_image():
+    return render_template('CNN_MNIST_Up_image.html')
+
+
+@app.route('/CNN_MNIST_RealTime', methods=['GET'])
+def CNN_MNIST_RealTime():
+    return render_template('CNN_MNIST_RealTime.html')
+
+
+@app.route('/Activity_Recognition', methods=['GET'])
+def Activity_Recognition():
+    return render_template('Activity_Recognition.html')
+
+
+
+
+
+@app.route('/ComputerVision')
+def ComputerVision():
+    return render_template('ComputerVision.html')
 
 
 @app.route('/Regression')
@@ -183,6 +219,83 @@ def Clustering():
     return render_template('Clustering.html')
 
 
+
+@app.route("/predict_uploaded_image", methods=["POST"])
+def predict_uploaded_image():
+    img = Image.open(request.files["img"]).convert("L")
+
+    # predict
+    res_json = {"pred": "Err", "probs": []}
+    if predict is not None:
+        res = predict(img)
+        res_json["pred"] = str(np.argmax(res))
+        res_json["probs"] = [p * 100 for p in res]
+
+    return json.dumps(res_json)
+
+
+
+@app.route("/DigitRecognition", methods=["POST"])
+def predict_digit():
+    img = Image.open(request.files["img"]).convert("L")
+
+    # predict
+    res_json = {"pred": "Err", "probs": []}
+    if predict is not None:
+        res = predict(img)
+        res_json["pred"] = str(np.argmax(res))
+        res_json["probs"] = [p * 100 for p in res]
+
+    return json.dumps(res_json)
+
+
+class Predict():
+    def __init__(self):
+        device = torch.device("cpu")
+        self.model = Model().to(device)
+        self.model.load_state_dict(torch.load(SAVE_MODEL_PATH, map_location=device))
+        self.transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+
+    def _centering_img(self, img):
+        w, h = img.size[:2]
+        left, top, right, bottom = w, h, -1, -1
+        imgpix = img.getdata()
+
+        for y in range(h):
+            offset_y = y * w
+            for x in range(w):
+                if imgpix[offset_y + x] > 0:
+                    left = min(left, x)
+                    top = min(top, y)
+                    right = max(right, x)
+                    bottom = max(bottom, y)
+
+        shift_x = (left + (right - left) // 2) - w // 2
+        shift_y = (top + (bottom - top) // 2) - h // 2
+        return ImageChops.offset(img, -shift_x, -shift_y)
+
+    def __call__(self, img):
+        img = ImageOps.invert(img)  # MNIST image is inverted
+        img = self._centering_img(img)
+        img = img.resize((28, 28), Image.BICUBIC)  # resize to 28x28
+        tensor = self.transform(img)
+        tensor = tensor.unsqueeze_(0)  # 1,1,28,28
+
+        self.model.eval()
+        with torch.no_grad():
+            preds = self.model(tensor)
+            preds = preds.detach().numpy()[0]
+
+        return preds
+
+
+
+
+if __name__ == '__main__':
+    import os
+    assert os.path.exists(SAVE_MODEL_PATH), "no saved model"
+    predict = Predict()
+    app.run(debug=True)
 
 
 
@@ -257,14 +370,5 @@ def Clustering():
 #     print(f"Predicted: {pred_idx}, Prob: {pred[0][pred_idx]*100} %")
 
 #     return render_template('IrisImage.html')
-
-
-
-
-
-if __name__ == '__main__':
-    # Start the Flask appimg
-    app.run(debug=True)
-
 
 

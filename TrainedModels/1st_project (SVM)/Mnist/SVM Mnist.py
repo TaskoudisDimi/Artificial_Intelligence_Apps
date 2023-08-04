@@ -14,10 +14,12 @@ import seaborn as sns
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix
 import joblib
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
-
-train_data = pd.read_csv("C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/1st_project (SVM)/Mnist/data/mnist_train.csv")
-test_data = pd.read_csv("C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/1st_project (SVM)/Mnist/data/mnist_test.csv")
+train_data = pd.read_csv("C:/Users/chris/Desktop/Dimitris/Tutorials/AI/data/mnist_train.csv")
+test_data = pd.read_csv("C:/Users/chris/Desktop/Dimitris/Tutorials/AI/data/mnist_test.csv")
 
 
 
@@ -67,6 +69,26 @@ print(metrics.confusion_matrix(y_test, y_pred), "\n")
 model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/SVM_model_Mnist.pkl'
 joblib.dump(model, model_filename)
 
+
+
+# # Plot some random images
+# num_images_to_plot = 5
+# fig, axes = plt.subplots(1, num_images_to_plot, figsize=(15, 3))
+
+# for i in range(num_images_to_plot):
+#     # Randomly select an image from the dataset
+#     random_idx = np.random.randint(0, len(X_scaled))
+#     image = X_scaled[random_idx].reshape(28, 28)
+    
+#     # Get the corresponding label
+#     label = y[random_idx]
+    
+#     # Plot the image
+#     axes[i].imshow(image, cmap='gray')
+#     axes[i].set_title(f"Label: {label}")
+#     axes[i].axis('off')
+
+# plt.show()
 
 
 
