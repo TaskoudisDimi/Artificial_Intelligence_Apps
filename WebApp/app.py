@@ -25,6 +25,19 @@ KNN_Iris_model = joblib.load(model_filename)
 model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
 KNearestCentroid_Iris_model = joblib.load(model_filename)
 
+### IRIS Clustering Model ### 
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
+KMeans_Iris_model = joblib.load(model_filename)
+
+
+### BreastCancer Clustering Model ### 
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
+KMeans_breast_cancer_model = joblib.load(model_filename)
+
+
+# Load the saved KMeans model and StandardScaler
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
+scaler = joblib.load(model_filename)
 
 
 @app.route('/')
@@ -236,6 +249,91 @@ class Predict():
 
 
 
+@app.route('/Clustering')
+def Clustering():
+    return render_template('Clustering.html')
+
+
+@app.route('/Clustering_Iris')
+def Clustering_Iris():
+    return render_template('Clustering_Iris.html')
+
+
+@app.route('/Clustering_Iris', methods=['GET', 'POST'])
+def Clustering_Iris_Predict():
+    if request.method == 'POST':
+        try:
+            sepal_length = float(request.form.get('sepal_length'))
+            sepal_width = float(request.form.get('sepal_width'))
+
+            # Create a new data point from user input
+            new_data_point = np.array([[sepal_length, sepal_width]])
+
+            # Predict the cluster for the user's input
+            predicted_cluster = KMeans_Iris_model.predict(new_data_point)
+
+            if(predicted_cluster is None):
+                return render_template('Clustering_Iris.html')
+            else:
+                result = int(predicted_cluster[0])
+                if(result == 0):
+                    result = "Setosa"
+                elif result == 1:
+                    result = "Versicolor"
+                else:
+                    result = "Virginica"
+            return render_template('Clustering_Iris.html', result=result)
+
+
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid input. Please enter valid numbers.'})
+
+    return render_template('Clustering_Iris.html')
+
+
+
+@app.route('/Clustering_BreastCancer')
+def Clustering_BreastCancer():
+    return render_template('Clustering_BreastCancer.html')
+
+
+@app.route('/Clustering_BreastCancer', methods=['GET', 'POST'])
+def Clustering_BreastCancer_Predict():
+    if request.method == 'POST':
+        try:
+            # Get user input features (mean radius and mean texture)
+            mean_radius = float(request.form.get('mean_radius'))
+            mean_texture = float(request.form.get('mean_texture'))
+
+            # Standardize the input features (same as during training)
+            user_input = np.array([[mean_radius, mean_texture]])
+            user_input = scaler.transform(user_input)
+
+            # Predict the cluster for the user's input
+            predicted_cluster = KMeans_Iris_model.predict(user_input)
+            if(predicted_cluster is None):
+                return render_template('Clustering_BreastCancer.html')
+            else:
+                result = int(predicted_cluster[0])
+                if(result == 0):
+                    result = "Setosa"
+                elif result == 1:
+                    result = "Versicolor"
+                else:
+                    result = "Virginica"
+            return render_template('Clustering_BreastCancer.html', result=result)
+
+
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid input. Please enter valid numbers.'})
+
+    return render_template('Clustering_BreastCancer.html')
+
+
+
+
+
+
 @app.route('/Activity_Recognition', methods=['GET'])
 def Activity_Recognition():
     return render_template('Activity_Recognition.html')
@@ -251,9 +349,6 @@ def Regression():
     return render_template('Regression.html')
 
 
-@app.route('/Clustering')
-def Clustering():
-    return render_template('Clustering.html')
 
 
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breast Cancer KMeans Clustering</title>
+</head>
+<body>
+    <h1>Breast Cancer KMeans Clustering</h1>
+    <form id="user-input-form" method="POST">
+        <label for="mean_radius">Mean Radius:</label>
+        <input type="number" id="mean_radius" name="mean_radius" step="any" required>
+        <br>
+        <label for="mean_texture">Mean Texture:</label>
+        <input type="number" id="mean_texture" name="mean_texture" step="any" required>
+        <br>
+        <button type="submit">Predict Cluster</button>
+    </form>
+    
+    <h2>Predicted Cluster:</h2>
+    <p id="prediction-result">
+        {% if predicted_cluster is defined %}
+            Cluster: {{ predicted_cluster }}
+        {% else %}
+            (No prediction yet)
+        {% endif %}
+    </p>
+</body>
+</html>
