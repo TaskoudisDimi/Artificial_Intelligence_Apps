@@ -16,29 +16,38 @@ app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 
 ### IRIS Classification Models ### Model based on Text classification
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
 SVM_Iris_model = joblib.load(model_filename)
 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
 KNN_Iris_model = joblib.load(model_filename)
 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
 KNearestCentroid_Iris_model = joblib.load(model_filename)
 
 ### IRIS Clustering Model ### 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
 KMeans_Iris_model = joblib.load(model_filename)
 
 
 ### BreastCancer Clustering Model ### 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
 KMeans_breast_cancer_model = joblib.load(model_filename)
 
 
 # Load the saved KMeans model and StandardScaler
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
 scaler = joblib.load(model_filename)
 
+
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
+Regression_Iris_model = joblib.load(model_filename)
 
 @app.route('/')
 def home():
@@ -349,7 +358,28 @@ def Regression():
     return render_template('Regression.html')
 
 
+@app.route('/Regression_iris', methods=['GET', 'POST'])
+def Regression_iris():
+    if request.method == 'POST':
+        try:
+            # Get user input features (sepal length, sepal width, petal length, petal width)
+            sepal_length = float(request.form.get('sepal_length'))
+            sepal_width = float(request.form.get('sepal_width'))
+            petal_length = float(request.form.get('petal_length'))
+            petal_width = float(request.form.get('petal_width'))
 
+            # Create a new data point from user input
+            user_input = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
+
+            # Predict the regression value for the user's input
+            predicted_value = Regression_Iris_model.predict(user_input)
+
+            return render_template('Regression_Iris.html', predicted_value=predicted_value[0])
+
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid input. Please enter valid numbers.'})
+
+    return render_template('Regression_Iris.html', predicted_value=None)
 
 
 
