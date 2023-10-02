@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Regression</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="title">
@@ -13,6 +15,7 @@
     <div class="container">
         <div class="btn-container">
             <form action="/Regression_iris" method="get"><button type="submit" class="btn btn-primary">Iris</button></form>
+            <form action="/Regression_house" method="get"><button type="submit" class="btn btn-primary">Values of Houses</button></form>
             <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
         </div>
     </div>

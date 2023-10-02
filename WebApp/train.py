@@ -8,8 +8,8 @@ from torchvision import transforms
 
 from model import Model
 
-# SAVE_MODEL_PATH = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/savedModel/best_accuracy.pth"
-SAVE_MODEL_PATH = "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/savedModel/best_accuracy.pth"
+SAVE_MODEL_PATH = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/savedModel/best_accuracy.pth"
+# SAVE_MODEL_PATH = "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/savedModel/best_accuracy.pth"
 
 
 def train(opt):

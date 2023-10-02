@@ -10,50 +10,61 @@ from PIL import Image, ImageChops, ImageOps
 from torchvision import transforms
 from model import Model
 from train import SAVE_MODEL_PATH
-
+import io
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 
 ### IRIS Classification Models ### Model based on Text classification
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
+# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
 SVM_Iris_model = joblib.load(model_filename)
 
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
+# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
 KNN_Iris_model = joblib.load(model_filename)
 
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
+# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
 KNearestCentroid_Iris_model = joblib.load(model_filename)
 
 ### IRIS Clustering Model ### 
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
+# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
 KMeans_Iris_model = joblib.load(model_filename)
 
 
 ### BreastCancer Clustering Model ### 
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
+# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
 KMeans_breast_cancer_model = joblib.load(model_filename)
 
 
 # Load the saved KMeans model and StandardScaler
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
+# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
 scaler = joblib.load(model_filename)
 
 
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
+# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
 Regression_Iris_model = joblib.load(model_filename)
+
+
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl'
+# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
+Regression_House_model = joblib.load(model_filename)
+
+
+
+
 
 @app.route('/')
 def home():
     return render_template('Home.html')
 
 
+### Classification
 @app.route('/Classification')
 def Classification():
     return render_template('Classification.html')
@@ -168,23 +179,25 @@ def ClassificationIris():
 
 
 
-#CNN
-@app.route('/CNN', methods=['GET'])
-def CNN():
-    return render_template('CNN.html')
-
-@app.route('/CNN_MNIST', methods=['GET'])
-def CNN_MNIST():
-    return render_template('CNN_MNIST.html')
-
-@app.route('/CNN_MNIST_Up_image', methods=['GET'])
-def CNN_MNIST_Up_image():
-    return render_template('CNN_MNIST_Up_image.html')
 
 
-@app.route('/CNN_MNIST_RealTime', methods=['GET'])
-def CNN_MNIST_RealTime():
-    return render_template('CNN_MNIST_RealTime.html')
+#ComputerVision
+@app.route('/ComputerVision', methods=['GET'])
+def ComputerVision():
+    return render_template('ComputerVision.html')
+
+@app.route('/ComputerVision_MNIST', methods=['GET'])
+def ComputerVision_MNIST():
+    return render_template('ComputerVision_MNIST.html')
+
+@app.route('/ComputerVision_MNIST_Up_image', methods=['GET'])
+def ComputerVision_MNIST_Up_image():
+    return render_template('ComputerVision_MNIST_Up_image.html')
+
+
+@app.route('/ComputerVision_MNIST_RealTime', methods=['GET'])
+def ComputerVision_MNIST_RealTime():
+    return render_template('ComputerVision_MNIST_RealTime.html')
 
  
 @app.route("/predict_uploaded_image", methods=["POST"])
@@ -256,8 +269,7 @@ class Predict():
     
 
 
-
-
+### Clustering 
 @app.route('/Clustering')
 def Clustering():
     return render_template('Clustering.html')
@@ -305,7 +317,7 @@ def Clustering_Iris_Predict():
 def Clustering_BreastCancer():
     return render_template('Clustering_BreastCancer.html')
 
-
+### TODO: Display plots to the html code
 @app.route('/Clustering_BreastCancer', methods=['GET', 'POST'])
 def Clustering_BreastCancer_Predict():
     if request.method == 'POST':
@@ -340,19 +352,7 @@ def Clustering_BreastCancer_Predict():
 
 
 
-
-
-
-@app.route('/Activity_Recognition', methods=['GET'])
-def Activity_Recognition():
-    return render_template('Activity_Recognition.html')
-
-
-@app.route('/ComputerVision')
-def ComputerVision():
-    return render_template('ComputerVision.html')
-
-
+### Regression 
 @app.route('/Regression')
 def Regression():
     return render_template('Regression.html')
@@ -381,6 +381,41 @@ def Regression_iris():
 
     return render_template('Regression_Iris.html', predicted_value=None)
 
+
+@app.route('/Regression_house', methods=['GET', 'POST'])
+def Regression_house():
+    try:
+        # Get input data from the form
+        inputs = [float(x) for x in request.form.values()]
+        
+        # Make a prediction using the model
+        prediction = Regression_House_model.predict([inputs])[0]
+        
+        # Format the prediction as a string
+        predicted_value = f"${prediction:.4f}"
+        
+        return render_template('Regression_House.html', prediction=predicted_value)
+    
+    except Exception as e:
+        return render_template('Regression_House.html', error="Error: " + str(e))
+
+
+
+
+
+
+
+
+
+
+@app.route('/Activity_Recognition', methods=['GET'])
+def Activity_Recognition():
+    return render_template('Activity_Recognition.html')
+
+
+@app.route('/ComputerVision')
+def ComputerVision():
+    return render_template('ComputerVision.html')
 
 
 
