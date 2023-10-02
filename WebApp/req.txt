@@ -1,0 +1,8 @@
+pip
+flask
+numpy
+pandas
+cv2
+torch
+torchvision
+watchdog
