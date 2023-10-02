@@ -27,10 +27,16 @@
         <p>{{ message }}</p>
     {% endif %}
 
+    {% if centers %}
+    <!-- Add a div element to display the plot -->
+    <div id="cluster-plot"></div>
+    {% endif %}
+    
     {% if result %}
         <h4 class="text-center">The predicted class is: {{ result }}</h4>
     {% endif %}
 
+   
 <!-- Add Bootstrap and jQuery JS links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
