@@ -56,7 +56,13 @@ model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Int
 Regression_House_model = joblib.load(model_filename)
 
 
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl'
+# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
+Regression_House_model = joblib.load(model_filename)
 
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pkl'
+# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
+cifar10_model = joblib.load(model_filename)
 
 
 @app.route('/')
@@ -211,7 +217,10 @@ def predict_uploaded_image():
         res_json["pred"] = str(np.argmax(res))
         res_json["probs"] = [p * 100 for p in res]
 
-    return json.dumps(res_json)
+
+    
+    return render_template('ComputerVision_MNIST_Up_image.html', predicted_value=res_json["pred"])
+
 
 
 @app.route("/DigitRecognition", methods=["POST"])
@@ -402,9 +411,14 @@ def Regression_house():
 
 
 
+@app.route('/RealTimeFaceDetection', methods=['GET'])
+def RealTimeFaceDetection():
+    return render_template('RealTimeFaceDetection.html')
 
 
-
+@app.route('/ComputerVision_CIFAR', methods=['GET'])
+def ComputerVision_CIFAR():
+    return render_template('ComputerVision_CIFAR10.html')
 
 
 
@@ -412,11 +426,13 @@ def Regression_house():
 def Activity_Recognition():
     return render_template('Activity_Recognition.html')
 
+@app.route('/LanguageTechnology', methods=['GET'])
+def LanguageTechnology():
+    return render_template('LanguageTechnology.html')
 
-@app.route('/ComputerVision')
-def ComputerVision():
-    return render_template('ComputerVision.html')
-
+@app.route('/ReinforcementLearning', methods=['GET'])
+def ReinforcementLearning():
+    return render_template('ReinforcementLearning.html')
 
 
 
