@@ -9,9 +9,9 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 # For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
 
 import os
-for dirname, _, filenames in os.walk('/kaggle/input'):
-    for filename in filenames:
-        print(os.path.join(dirname, filename))
+# for dirname, _, filenames in os.walk('/kaggle/input'):
+#     for filename in filenames:
+#         print(os.path.join(dirname, filename))
 
 # You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using "Save & Run All" 
 # You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session
@@ -34,8 +34,8 @@ from torch.utils.data import random_split
 #project name
 project_name = 'natural-scene-classification'
 
-data_dir = "../input/intel-image-classification/seg_train/seg_train/"
-test_data_dir = "../input/intel-image-classification/seg_test/seg_test"
+data_dir = "E:/nature_dataset/seg_train/seg_train"
+test_data_dir = "E:/nature_dataset/seg_test/seg_test"
 
 building_files = os.listdir(data_dir + '/buildings')
 print(f"Number of Buildings : {len(building_files)}")
@@ -63,12 +63,23 @@ def display_img(img,label):
 
 display_img(*dataset[0])
 
+# torch.manual_seed(random_seed) is a function in PyTorch that is used to set the seed for the random number generator 
+# in PyTorch's random module. This is useful when you want to ensure reproducibility in your experiments, 
+# particularly when dealing with operations that involve randomness, such as weight initialization, data shuffling, or dropout.
+# Reproducibility: By setting the seed, you make the random operations in your PyTorch code deterministic, 
+# meaning that they will produce the same results every time you run the code with the same seed. 
+# This is crucial for research and experimentation, as it allows you to ensure that your results are consistent and can be reproduced by others.
+# Usage: You typically call torch.manual_seed(random_seed) at the beginning of your code or experiment, before any random operations occur. 
+# Once the seed is set, it affects all random operations throughout your PyTorch code.
 random_seed = 2021
 torch.manual_seed(random_seed)
+
 
 val_size = 2000
 train_size = len(dataset) - val_size 
 
+# In PyTorch, random_split is a function provided by the torch.utils.data module that is used to randomly split a dataset 
+# into multiple smaller datasets, typically for the purpose of creating training and validation sets.
 train_data,val_data = random_split(dataset,[train_size,val_size])
 print(f"Length of Train Data : {len(train_data)}")
 print(f"Length of Validation Data : {len(val_data)}")
@@ -84,13 +95,13 @@ val_dl = DataLoader(val_data, batch_size*2, num_workers = 4, pin_memory = True)
 
 from torchvision.utils import make_grid
 
-def show_batch(dl):
-    for images, labels in dl:
-        fig,ax = plt.subplots(figsize = (16,12))
-        ax.set_xticks([])
-        ax.set_yticks([])
-        ax.imshow(make_grid(images,nrow=16).permute(1,2,0))
-        break
+# def show_batch(dl):
+#     for images, labels in dl:
+#         fig,ax = plt.subplots(figsize = (16,12))
+#         ax.set_xticks([])
+#         ax.set_yticks([])
+#         ax.imshow(make_grid(images,nrow=16).permute(1,2,0))
+#         break
 
 
 
@@ -198,7 +209,10 @@ class DeviceDataLoader():
     def __iter__(self):
         """ Yield a batch of data after moving it to device"""
         for b in self.dl:
-            yield to_device(b,self.device)
+            yield to_device(b,self.device) 
+            # The Yield keyword in Python is similar to a return statement used for returning values or objects in Python. 
+            # However, there is a slight difference. The yield statement returns a generator object to the one who calls 
+            # the function which contains yield, instead of simply returning a value.
             
     def __len__(self):
         """ Number of batches """
@@ -306,7 +320,7 @@ img = Image.open("../input/intel-image-classification/seg_pred/seg_pred/10004.jp
 img = transforms.ToTensor()(img)
 
 #print image
-plt.imshow(img.permute(1,2,0))
+plt.imshow(img.permute(1,2,0)) # Reshape for CNN
 
 #prdict image label
 print(f"Predicted Class : {predict_img_class(img,model)}")
