@@ -13,7 +13,17 @@
     
     <div class="container">
         <div class="btn-container">
-            <form action="/ComputerVision_Cifar_Up_image" method="get"><button type="submit" class="btn btn-primary">Upload image</button></form>
+            <form action="/ComputerVision_CIFAR_predict" method="post" enctype="multipart/form-data">
+                <input type="file" name="image" accept=".jpg, .jpeg, .png">
+                <input type="submit" value="Predict">
+            </form>
+            <br>
+            <div>
+                <h2>Prediction Result:</h2>
+                <p>{{ prediction_result }}</p>
+            </div>
+
+
             <form action="/ComputerVision" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
             <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
            

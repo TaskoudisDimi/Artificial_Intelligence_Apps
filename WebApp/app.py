@@ -11,6 +11,8 @@ from torchvision import transforms
 from model import Model
 from train import SAVE_MODEL_PATH
 import io
+from Models.Net import Net
+
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -60,9 +62,18 @@ model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Int
 # model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
 Regression_House_model = joblib.load(model_filename)
 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pkl'
-# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
-cifar10_model = joblib.load(model_filename)
+
+
+# Load Cifar-10 CNN model
+model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pth'  # Adjust the path as needed
+cifar10_model = Net()
+cifar10_model.load_state_dict(torch.load(model_filename))
+cifar10_model.eval()  # Set the model to evaluation mode
+class_names = [
+    'airplane', 'automobile', 'bird', 'cat', 'deer',
+    'dog', 'frog', 'horse', 'ship', 'truck'
+]
+
 
 
 @app.route('/')
@@ -125,157 +136,6 @@ def ClassificationIris():
         message = "Invalid input format. Please provide valid numeric values for all features."
         return render_template('Classification_Iris.html', message=message)
 
-
-# @app.route('/Classification_BreastCancer', methods=['GET'])
-# def Classification_BreastCancer():
-#     return render_template('Classification_BreastCancer.html')
-
-
-# @app.route('/ClassificationBreastCancer', methods=['POST'])
-# def ClassificationBreastCancer():
-    try:
-
-        # # Example input array with 6 features (replace with your own input data)
-        # input_data = np.array([[17.99, 10.38, 122.8, 1001, 0.1184, 0.2776]])
-        
-        # Extract the input data from the HTML form
-        Radius_Mean = request.form.get('Radius_Mean')
-        Texture_Mean = request.form.get('Texture_Mean')
-        Perimeter_Mean = request.form.get('Perimeter_Mean')
-        Area_Mean = request.form.get('Area_Mean')
-        Smoothness_Mean = request.form.get('Smoothness_Mean')
-        Compactness_Mean = request.form.get('Compactness_Mean')
-
-        # Check if any of the features are null or empty strings
-        if not all([Radius_Mean, Texture_Mean, Perimeter_Mean, Area_Mean, Smoothness_Mean, Compactness_Mean]):
-            message = "Please set all the features"
-            return render_template('Classification_BreastCancer.html', message=message)
-        
-        # Convert features to floats if they are not null or empty strings
-        Radius_Mean = float(Radius_Mean)
-        Texture_Mean = float(Texture_Mean)
-        Perimeter_Mean = float(Perimeter_Mean)
-        Area_Mean = float(Area_Mean)
-        Smoothness_Mean = float(Smoothness_Mean)
-        Compactness_Mean = float(Compactness_Mean)
-
-        input_data = np.array([Radius_Mean, Texture_Mean, Perimeter_Mean, Area_Mean, Smoothness_Mean, Compactness_Mean]).reshape(1, -1)
-
-        if 'SVM' in request.form:
-            prediction = SVM_BreastCancer_model.predict(input_data)
-        elif 'KNearestCentroid' in request.form:
-            prediction = NearestCentroid_BreastCancer_model.predict(input_data)
-        
-
-        if(prediction is None):
-            return render_template('Classification_BreastCancer.html')
-        else:
-            result = int(prediction[0])
-            print(result)
-            if(result == 0):
-                result = "Benign"
-            else:
-                result = "Malignant"
-            return render_template('Classification_BreastCancer.html', result=result)
-        
-        
-    except (ValueError, TypeError) as e:
-        message = "Invalid input format. Please provide valid numeric values for all features."
-        return render_template('Classification_BreastCancer.html', message=message)
-
-
-
-
-
-#ComputerVision
-@app.route('/ComputerVision', methods=['GET'])
-def ComputerVision():
-    return render_template('ComputerVision.html')
-
-@app.route('/ComputerVision_MNIST', methods=['GET'])
-def ComputerVision_MNIST():
-    return render_template('ComputerVision_MNIST.html')
-
-@app.route('/ComputerVision_MNIST_Up_image', methods=['GET'])
-def ComputerVision_MNIST_Up_image():
-    return render_template('ComputerVision_MNIST_Up_image.html')
-
-
-@app.route('/ComputerVision_MNIST_RealTime', methods=['GET'])
-def ComputerVision_MNIST_RealTime():
-    return render_template('ComputerVision_MNIST_RealTime.html')
-
- 
-@app.route("/predict_uploaded_image", methods=["POST"])
-def predict_uploaded_image():
-    img = Image.open(request.files["img"]).convert("L")
-
-    # predict
-    res_json = {"pred": "Err", "probs": []}
-    if predict is not None:
-        res = predict(img)
-        res_json["pred"] = str(np.argmax(res))
-        res_json["probs"] = [p * 100 for p in res]
-
-
-    
-    return render_template('ComputerVision_MNIST_Up_image.html', predicted_value=res_json["pred"])
-
-
-
-@app.route("/DigitRecognition", methods=["POST"])
-def predict_digit():
-    img = Image.open(request.files["img"]).convert("L")
-
-    # predict
-    res_json = {"pred": "Err", "probs": []}
-    if predict is not None:
-        res = predict(img)
-        res_json["pred"] = str(np.argmax(res))
-        res_json["probs"] = [p * 100 for p in res]
-
-    return json.dumps(res_json)
-
-
-class Predict():
-    def __init__(self):
-        device = torch.device("cpu")
-        self.model = Model().to(device)
-        self.model.load_state_dict(torch.load(SAVE_MODEL_PATH, map_location=device))
-        self.transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
-
-    def _centering_img(self, img):
-        w, h = img.size[:2]
-        left, top, right, bottom = w, h, -1, -1
-        imgpix = img.getdata()
-
-        for y in range(h):
-            offset_y = y * w
-            for x in range(w):
-                if imgpix[offset_y + x] > 0:
-                    left = min(left, x)
-                    top = min(top, y)
-                    right = max(right, x)
-                    bottom = max(bottom, y)
-
-        shift_x = (left + (right - left) // 2) - w // 2
-        shift_y = (top + (bottom - top) // 2) - h // 2
-        return ImageChops.offset(img, -shift_x, -shift_y)
-
-    def __call__(self, img):
-        img = ImageOps.invert(img)  # MNIST image is inverted
-        img = self._centering_img(img)
-        img = img.resize((28, 28), Image.BICUBIC)  # resize to 28x28
-        tensor = self.transform(img)
-        tensor = tensor.unsqueeze_(0)  # 1,1,28,28
-
-        self.model.eval()
-        with torch.no_grad():
-            preds = self.model(tensor)
-            preds = preds.detach().numpy()[0]
-
-        return preds
-    
 
 
 ### Clustering 
@@ -411,9 +271,94 @@ def Regression_house():
 
 
 
-@app.route('/RealTimeFaceDetection', methods=['GET'])
-def RealTimeFaceDetection():
-    return render_template('RealTimeFaceDetection.html')
+
+#ComputerVision
+@app.route('/ComputerVision', methods=['GET'])
+def ComputerVision():
+    return render_template('ComputerVision.html')
+
+@app.route('/ComputerVision_MNIST', methods=['GET'])
+def ComputerVision_MNIST():
+    return render_template('ComputerVision_MNIST.html')
+
+@app.route('/ComputerVision_MNIST_Up_image', methods=['GET'])
+def ComputerVision_MNIST_Up_image():
+    return render_template('ComputerVision_MNIST_Up_image.html')
+
+
+@app.route('/ComputerVision_MNIST_RealTime', methods=['GET'])
+def ComputerVision_MNIST_RealTime():
+    return render_template('ComputerVision_MNIST_RealTime.html')
+
+ 
+@app.route("/predict_uploaded_image", methods=["POST"])
+def predict_uploaded_image():
+    img = Image.open(request.files["img"]).convert("L")
+
+    # predict
+    res_json = {"pred": "Err", "probs": []}
+    if predict is not None:
+        res = predict(img)
+        res_json["pred"] = str(np.argmax(res))
+        res_json["probs"] = [p * 100 for p in res]
+
+    return render_template('ComputerVision_MNIST_Up_image.html', predicted_value=res_json["pred"])
+
+
+@app.route("/DigitRecognition", methods=["POST"])
+def predict_digit():
+    img = Image.open(request.files["img"]).convert("L")
+
+    # predict
+    res_json = {"pred": "Err", "probs": []}
+    if predict is not None:
+        res = predict(img)
+        res_json["pred"] = str(np.argmax(res))
+        res_json["probs"] = [p * 100 for p in res]
+
+    return json.dumps(res_json)
+
+
+class Predict():
+    def __init__(self):
+        device = torch.device("cpu")
+        self.model = Model().to(device)
+        self.model.load_state_dict(torch.load(SAVE_MODEL_PATH, map_location=device))
+        self.transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+
+    def _centering_img(self, img):
+        w, h = img.size[:2]
+        left, top, right, bottom = w, h, -1, -1
+        imgpix = img.getdata()
+
+        for y in range(h):
+            offset_y = y * w
+            for x in range(w):
+                if imgpix[offset_y + x] > 0:
+                    left = min(left, x)
+                    top = min(top, y)
+                    right = max(right, x)
+                    bottom = max(bottom, y)
+
+        shift_x = (left + (right - left) // 2) - w // 2
+        shift_y = (top + (bottom - top) // 2) - h // 2
+        return ImageChops.offset(img, -shift_x, -shift_y)
+
+    def __call__(self, img):
+        img = ImageOps.invert(img)  # MNIST image is inverted
+        img = self._centering_img(img)
+        img = img.resize((28, 28), Image.BICUBIC)  # resize to 28x28
+        tensor = self.transform(img)
+        tensor = tensor.unsqueeze_(0)  # 1,1,28,28
+
+        self.model.eval()
+        with torch.no_grad():
+            preds = self.model(tensor)
+            preds = preds.detach().numpy()[0]
+
+        return preds
+    
+
 
 
 @app.route('/ComputerVision_CIFAR', methods=['GET'])
@@ -421,18 +366,76 @@ def ComputerVision_CIFAR():
     return render_template('ComputerVision_CIFAR10.html')
 
 
+@app.route('/ComputerVision_CIFAR_predict', methods=['POST'])
+def predict():
+    if request.method == 'POST':
+        uploaded_image = request.files['image']
+        temp_image_path = 'temp_image.jpg'
+        uploaded_image.save(temp_image_path)
+        predicted_class = predict_image(temp_image_path)
+        return render_template('ComputerVision_CIFAR10.html', prediction_result=predicted_class)
+    
+
+
+def predict_image(image_path):
+    # Preprocess the input image
+    input_image = preprocess_image(image_path)
+    
+    # Make predictions
+    with torch.no_grad():
+        output = cifar10_model(input_image)
+    
+    # Get the predicted class index
+    _, predicted_class_idx = torch.max(output, 1)
+    
+    predicted_class_name = class_names[predicted_class_idx.item()]
+    
+    # Return the predicted class name
+    return predicted_class_name
+
+def preprocess_image(image_path):
+    # Open the image using PIL (Python Imaging Library)
+    image = Image.open(image_path)
+    print('The size of the input image is ', image.size)
+    # Resize the image to 32x32 pixels
+    image = image.resize((32, 32))
+
+    # Apply the same transformations used during training (convert to tensor and normalize)
+    transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+    ])
+
+    # Apply the transformations to the image
+    processed_image = transform(image).unsqueeze(0)  # Add a batch dimension
+
+    return processed_image
+
+
+
+@app.route('/RealTimeFaceDetection', methods=['GET'])
+def RealTimeFaceDetection():
+    return render_template('RealTimeFaceDetection.html')
+
+
 
 @app.route('/Activity_Recognition', methods=['GET'])
 def Activity_Recognition():
     return render_template('Activity_Recognition.html')
 
+
+
+# Language Model 
 @app.route('/LanguageTechnology', methods=['GET'])
 def LanguageTechnology():
     return render_template('LanguageTechnology.html')
 
+
+# Reinforcement Learning Model 
 @app.route('/ReinforcementLearning', methods=['GET'])
 def ReinforcementLearning():
     return render_template('ReinforcementLearning.html')
+
 
 
 

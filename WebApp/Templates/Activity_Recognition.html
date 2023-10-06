@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Activity Recognition</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <p>Activity_Recognition</p>
+    
+    <h1 class="title text-center">Activity Recognition</h1>
+    
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        <input type="file" name="video" accept="video/*" required>
+        <button type="submit" class="btn btn-primary">Upload & Predict</button>
+    </form>
+
+    <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
+    <form action="/ComputerVision" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
+
+    <!-- Add Bootstrap and jQuery JS links -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
