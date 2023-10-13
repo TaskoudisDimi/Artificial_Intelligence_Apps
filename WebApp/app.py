@@ -431,6 +431,18 @@ def LanguageTechnology():
     return render_template('LanguageTechnology.html')
 
 
+# Language Model 
+@app.route('/English_To_German', methods=['GET'])
+def English_To_German():
+    return render_template('English_To_German.html')
+
+
+# Language Model 
+@app.route('/English_To_German_Predict', methods=['GET'])
+def English_To_German_Predict():
+    return render_template('English_To_German.html')
+
+
 # Reinforcement Learning Model 
 @app.route('/ReinforcementLearning', methods=['GET'])
 def ReinforcementLearning():

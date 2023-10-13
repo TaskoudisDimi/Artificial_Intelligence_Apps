@@ -13,20 +13,20 @@ import os
 # with ZipFile("E:/Trips/Trips.zip", 'r') as z:
 #     z.extractall(path="E:/Trips/")
 
-data_dir = "C:/Users/chris/Desktop/Dimitris/Tutorials/Python/Trips/Trips/"
+# data_dir = "C:/Users/chris/Desktop/Dimitris/Tutorials/Python/Trips/Trips/"
 
 # Create an empty list to store the DataFrames
-dataframes = []
+# dataframes = []
 
 # Get a list of all files in the folder
-file_list = os.listdir(data_dir)
+# file_list = os.listdir(data_dir)
 
 # Loop through the files, read CSVs, and append DataFrames to the list
-for file in file_list:
-    if file.endswith('.csv'):
-        file_path = os.path.join(data_dir, file)  # Full path to the CSV file
-        df = pd.read_csv(file_path)
-        dataframes.append(df)
+# for file in file_list:
+#     if file.endswith('.csv'):
+#         file_path = os.path.join(data_dir, file)  # Full path to the CSV file
+#         df = pd.read_csv(file_path)
+#         dataframes.append(df)
         
         
         # # Read the CSV file in smaller chunks (adjust chunk size as needed)
@@ -37,30 +37,38 @@ for file in file_list:
         #     combined_df = combined_df.append(chunk, ignore_index=True)
         
         
-combined_df = pd.concat(dataframes, ignore_index=True)  
+# combined_df = pd.concat(dataframes, ignore_index=True)  
         
 
-# #Read the first data
-# data2016 = pd.read_csv("C:/Users/chris/Desktop/Dimitris/Tutorials/Python/Trips/Trips/2016Trips.csv")
+
+#Read the first data
+data2016 = pd.read_csv("C:/Users/chris/Desktop/Dimitris/Tutorials/Python/Trips/Trips/2016Trips.csv")
 
 
-# # Read the columns
-# with open("C:/Users/chris/Desktop/Dimitris/Tutorials/Python/Trips/columns.txt", 'r') as columns_file:
-#     column_names = [line.strip(' [ ] ,\n') for line in columns_file]
+# Read the columns
+with open("C:/Users/chris/Desktop/Dimitris/Tutorials/Python/Trips/columns.txt", 'r') as columns_file:
+    column_names = [line.strip(' [ ] ,\n') for line in columns_file]
   
     
-# # Ensure the number of column names matches the number of columns in your data (excluding the first column)
-# if len(column_names) == data2016.shape[1]:
-#     # Set the column names for the DataFrame starting from the second column
-#     data2016.columns.values[0:] = column_names
+# Ensure the number of column names matches the number of columns in your data (excluding the first column)
+if len(column_names) == data2016.shape[1]:
+    # Set the column names for the DataFrame starting from the second column
+    data2016.columns.values[0:] = column_names
 
 
-# # Read the cleaned columns
-# with open("C:/Users/chris/Desktop/Dimitris/Tutorials/Python/Trips/cleanColumns.txt", 'r') as columns_file:
-#     column_names_cleaned = [line.strip(' [ ] ,\n') for line in columns_file]
+# Read the cleaned columns
+with open("C:/Users/chris/Desktop/Dimitris/Tutorials/Python/Trips/cleanColumns.txt", 'r') as columns_file:
+    column_names_cleaned = [line.strip(' [ ] ,\n') for line in columns_file]
 
 
-# dataTrips = data2016.filter(items=column_names_cleaned)
+dataTrips = data2016.filter(items=column_names_cleaned)
+
+
+columns_to_keep = ['Trip_Num', 'Start_Date', 'Start_Lat', 'Start_Lon', 
+                   'Start_PostalCode', 'End_Date', 'End_Lat', 'End_Lon', 'End_PostalCode', 
+                   'Trip_Completed', 'age']
+
+dataTripsNew = data2016[columns_to_keep]
 
 
 # # print(dataTrips.shape)

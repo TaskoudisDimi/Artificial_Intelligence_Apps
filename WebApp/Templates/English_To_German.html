@@ -14,8 +14,11 @@
 
     <div class="container">
         <div class="btn-container">
-            <form action="/English_To_German" method="get"><button type="submit" class="btn btn-primary">English To German</button></form>
             <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
+            <form action="/English_To_German" method="post" accept=".txt">
+                <input type="file" name="text" accept=".txt">
+                <input type="submit" value="Predict">
+            </form>
         </div>
     </div>
     
