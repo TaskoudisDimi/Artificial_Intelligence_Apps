@@ -353,15 +353,138 @@
 # Torch Tutorial
 
 
+import torch
+import numpy as np
+
+
+# x = torch.empty(2,2,2,3)
+
+
+
+# x = torch.zeros(2,2)
+# print(x.size())
+
+
+# y = torch.ones(2,2, dtype=torch.double)
+# print(y.size())
+
+# print(y.type)
+# print(y.size())
+
+# z = torch.tensor([2.5, 0.1])
+# print(z)
+
+
+# x = torch.rand(2,2)
+# y = torch.rand(2,2)
+# z = x - y 
+
+# z = torch.add(x, y)
+# z = torch.sub(x, y)
+# z = torch.mul(x, y)
+# z = torch.div(x, y)
+
+# print(z)
+# print(z.size())
 
 
 
 
+# x = torch.rand(4,4)
+# print(x)
+# y = x.view(2,8)
+# print(y)
+
+
+# From torch to numpy
+# a = torch.ones(5)
+# print(a)
+# b = a.numpy()
+# print(b)
+
+# a.add_(1)
+# print(a)
+# print(b)
+
+
+# # From numpy to torch
+# a = np.ones(5)
+# print(a)
+# b = torch.from_numpy(a)
+# print(b)
+
+# a += 1
+# print(a)
+# print(b)
 
 
 
 
+# if torch.cuda.is_available():
+#     print("Cuda")
+# else:
+#     print("No Cuda")
 
+
+
+# requires_grad. The requires_grad attribute tells autograd to track your operations. 
+# So if you want PyTorch to create a graph corresponding to these operations, 
+# you will have to set the requires_grad attribute of the Tensor to True. 
+# There are 2 ways in which it can be done, either by passing it as an argument in torch.
+
+# x = torch.randn(3, requires_grad=True)
+# print(x)
+
+# y = x+2
+# print(y)
+
+# z = y*y*2
+# z = z.mean()
+# print(z)
+# z.backward()
+
+
+
+# x.requires_grad_(False)
+# print(x)
+
+
+# y = x.detach()
+# print(y)
+
+
+# with torch.no_grad():
+#     y = x +2
+#     print(y)
+
+
+
+
+# Backpropagation proccess
+x = torch.tensor(1.0)
+y = torch.tensor(2.0)
+
+w = torch.tensor(1.0, requires_grad=True)
+print(w)
+
+# Forward pass and compute the loss
+y_hat = w * x
+print(y_hat)
+loss = (y_hat - y) ** 2
+print(loss)
+
+
+# Backward pass
+# The backward() method in Pytorch is used to calculate the gradient during the backward pass 
+# in the neural network. If we do not call this backward() method then gradients are not 
+# calculated for the tensors. The gradient of a tensor is calculated for 
+# the one having requires_grad is set to True
+loss.backward()
+print(w.grad)
+
+
+# Update weights
+# Next forward and backwards
 
 
 
