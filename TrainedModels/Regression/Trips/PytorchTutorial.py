@@ -461,17 +461,17 @@ import numpy as np
 
 
 # Backpropagation proccess
-x = torch.tensor(1.0)
-y = torch.tensor(2.0)
+# x = torch.tensor(1.0)
+# y = torch.tensor(2.0)
 
-w = torch.tensor(1.0, requires_grad=True)
-print(w)
+# w = torch.tensor(1.0, requires_grad=True)
+# print(w)
 
 # Forward pass and compute the loss
-y_hat = w * x
-print(y_hat)
-loss = (y_hat - y) ** 2
-print(loss)
+# y_hat = w * x
+# print(y_hat)
+# loss = (y_hat - y) ** 2
+# print(loss)
 
 
 # Backward pass
@@ -479,15 +479,33 @@ print(loss)
 # in the neural network. If we do not call this backward() method then gradients are not 
 # calculated for the tensors. The gradient of a tensor is calculated for 
 # the one having requires_grad is set to True
-loss.backward()
-print(w.grad)
+# loss.backward()
+# print(w.grad)
 
 
 # Update weights
 # Next forward and backwards
 
 
+X = np.array([1,2,3,4], dtype=np.float32)
+Y = np.array([2,4,6,8], dtype=np.float32)
 
+
+w = 0.0
+
+#model prediction
+def forward(x):
+    return w * x
+
+
+#loss = MSE
+def loss(y, y_predicted):
+         return ((y_predicted-y)**2).mean()
+     
+     
+#gradient
+#MSE = 1/N * (w*x -y)**2
+# dj/dw = 1/N 2x (w*x -y)
 
 
 
