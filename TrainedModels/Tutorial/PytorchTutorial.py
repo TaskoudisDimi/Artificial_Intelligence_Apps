@@ -353,8 +353,8 @@
 # Torch Tutorial
 
 
-import torch
-import numpy as np
+# import torch
+# import numpy as np
 
 
 # x = torch.empty(2,2,2,3)
@@ -487,20 +487,20 @@ import numpy as np
 # Next forward and backwards
 
 
-X = np.array([1,2,3,4], dtype=np.float32)
-Y = np.array([2,4,6,8], dtype=np.float32)
+# X = np.array([1,2,3,4], dtype=np.float32)
+# Y = np.array([2,4,6,8], dtype=np.float32)
 
 
-w = 0.0
+# w = 0.0
 
-#model prediction
-def forward(x):
-    return w * x
+# #model prediction
+# def forward(x):
+#     return w * x
 
 
-#loss = MSE
-def loss(y, y_predicted):
-         return ((y_predicted-y)**2).mean()
+# #loss = MSE
+# def loss(y, y_predicted):
+#          return ((y_predicted-y)**2).mean()
      
      
 #gradient
