@@ -1,12 +1,12 @@
 import random
 import time
-
+import argparse
 import numpy as np
 import torch
 import torchvision
 from torchvision import transforms
-
 from model import Model
+
 
 SAVE_MODEL_PATH = "checkpoint/best_accuracy.pth"
 
@@ -75,7 +75,7 @@ def train(opt):
 
 
 if __name__ == "__main__":
-    import argparse
+    
     parser = argparse.ArgumentParser()
     parser.add_argument("--manual_seed", type=int, default=1111, help="random seed setting")
     parser.add_argument("--batch_size", type=int, default=64, help="batch size")
@@ -94,3 +94,4 @@ if __name__ == "__main__":
 
     # training
     train(opt)
+

@@ -360,11 +360,10 @@
 # x = torch.empty(2,2,2,3)
 
 
-
 # x = torch.zeros(2,2)
 # print(x.size())
 
-
+ 
 # y = torch.ones(2,2, dtype=torch.double)
 # print(y.size())
 
@@ -486,32 +485,32 @@
 # Update weights
 # Next forward and backwards
 
+import numpy as np
 
-# X = np.array([1,2,3,4], dtype=np.float32)
-# Y = np.array([2,4,6,8], dtype=np.float32)
-
-
-# w = 0.0
-
-# #model prediction
-# def forward(x):
-#     return w * x
+X = np.array([1,2,3,4], dtype=np.float32)
+Y = np.array([2,4,6,8], dtype=np.float32)
 
 
-# #loss = MSE
-# def loss(y, y_predicted):
-#          return ((y_predicted-y)**2).mean()
+w = 0.0
+
+#model prediction
+def forward(x):
+    return w * x
+
+
+#loss = MSE
+def loss(y, y_predicted):
+          return ((y_predicted-y)**2).mean()
      
      
-#gradient
-#MSE = 1/N * (w*x -y)**2
+# gradient
+# MSE = 1/N * (w*x -y)**2
 # dj/dw = 1/N 2x (w*x -y)
+def gradient(x, y, y_predicted):
+    return np.dot(2*x, y_predicted-y).mean()
 
 
-
-
-
-
+print(f'Prediction before training: f(5) = {forward(5):.3f}')
 
 
 

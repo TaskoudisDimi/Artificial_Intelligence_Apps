@@ -8,10 +8,19 @@ import json
 import torch
 from PIL import Image, ImageChops, ImageOps
 from torchvision import transforms
-from model import Model
-from train import SAVE_MODEL_PATH
 import io
-from Models.Net import Net
+import sys
+import os
+
+#Load Mnist model
+path_from_trainedModelsMnist = os.path.abspath('C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/CNN/Mnist/model.py')
+sys.path.append(path_from_trainedModelsMnist)
+from TrainedModels.CNN.Mnist import model
+
+#Load Cifar model
+path_from_trainedModelsCifar = os.path.abspath('C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/CNN/Cifar10/Net.py')
+sys.path.append(path_from_trainedModelsCifar)
+from TrainedModels.CNN.Cifar10 import Net
 
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
@@ -61,6 +70,8 @@ Regression_House_model = joblib.load(model_filename)
 model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl'
 # model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
 Regression_House_model = joblib.load(model_filename)
+
+SAVE_MODEL_PATH = "WebApp/Models/best_accuracy.pth"
 
 
 
@@ -322,7 +333,7 @@ def predict_digit():
 class Predict():
     def __init__(self):
         device = torch.device("cpu")
-        self.model = Model().to(device)
+        self.model = model.Model().to(device)
         self.model.load_state_dict(torch.load(SAVE_MODEL_PATH, map_location=device))
         self.transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
 

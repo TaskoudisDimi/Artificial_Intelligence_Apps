@@ -14,9 +14,13 @@ class Net(nn.Module):
         self.fc1 = nn.Linear(64 * 8 * 8, 128)
         self.fc2 = nn.Linear(128, 10)
 
+    # Convolutional layers (conv1 and conv2) are applied to the input tensor, followed by ReLU activation using torch.relu. 
+    # ReLU is a common activation function for convolutional layers.
+    # Max-pooling layers are used to downsample the spatial dimensions of the feature maps.
     def forward(self, x):
         x = self.pool(torch.relu(self.conv1(x)))
         x = self.pool(torch.relu(self.conv2(x)))
+        # The feature maps are flattened into a 1D tensor using x.view.
         x = x.view(-1, 64 * 8 * 8)
         x = torch.relu(self.fc1(x))
         x = self.fc2(x)

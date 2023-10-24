@@ -1,5 +1,3 @@
-# Taskoudis Dimitrios
-
 import numpy as np
 import pandas as pd
 from zipfile import ZipFile
@@ -12,6 +10,10 @@ import os
 
 
 
+class Model():
+    def __init__(self):
+        pass
+    
 
 # ## Build AI Model
 # from sklearn.model_selection import train_test_split

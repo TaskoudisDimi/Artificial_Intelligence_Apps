@@ -3,7 +3,7 @@ import numpy as np
 import zipfile
 import os
 
-
+# Colab
 # from google.colab import drive
 # drive.mount('/content/drive')
 
@@ -14,9 +14,7 @@ import os
 #   zip.extractall(destination)
   
 
-
 data_dir = "/content/drive/MyDrive/Programming/AI/Datasets/Trips/Trips/"
-
 
 # Create an empty list to store the DataFrames
 dataframes = []
@@ -24,8 +22,7 @@ dataframes = []
 # Get a list of all files in the folder
 file_list = os.listdir(data_dir)
 
-
-# Read the columns
+# Read and clean the columns
 with open("/content/drive/MyDrive/Programming/AI/Datasets/Trips/columns.txt", 'r') as columns_file:
     column_names = [line.strip(' [ ] ,\n') for line in columns_file]
 
@@ -34,17 +31,19 @@ with open("/content/drive/MyDrive/Programming/AI/Datasets/Trips/columns.txt", 'r
 for file in file_list:
     if file.endswith('.csv'):
         file_path = os.path.join(data_dir, file)  # Full path to the CSV file
+        #Read each file
         df = pd.read_csv(file_path)
+        #Set the columns to the data
         df.columns.values[0:] = column_names
         dataframes.append(df)
 
 # Concatenate the DataFrames vertically to append rows
 combined_df = pd.concat(dataframes, axis=0, ignore_index=True)
 
-
 # Correct the column names in columns_to_keep
 columns_to_keep = ['Trip_Num', 'Start_Date', 'Start_Lat', 'Start_Lon', 'Start_PostalCode',
                    'End_Date', 'End_Lat', 'End_Lon', 'End_PostalCode', 'Trip_Completed', 'age']
+
 data = combined_df[columns_to_keep]
 
 
@@ -53,23 +52,20 @@ print(list(data.columns))
 print(data.sample())
 print(data.info())
 print(data.describe())
-
-
 print(data.isnull().values.any())
+
 rows_with_null_values = data[data.isnull().any(axis=1)]
-# print(rows_with_null_values.shape)
+print(rows_with_null_values.shape)
 print(rows_with_null_values.sample())
 
 # Replaces missing values with 0 in-place
 data.fillna(0,inplace=True)
-
 
 # Keep only trips with Trip_Completed = 1
 dataTrips = data[data['Trip_Completed'] == 1]
 
 # Drop the column Trip_Completed
 dataTrips.drop(columns=['Trip_Completed'], inplace=True)
-
 
 # Check for rows with a string value in Column2 and set Column1 to 0
 for index, row in dataTrips.iterrows():
@@ -86,7 +82,6 @@ for index, row in dataTrips.iterrows():
     except ValueError:
         # If it's not an integer, set Column1 to 0
         dataTrips.at[index, 'Start_PostalCode'] = 0
-
 
 # Convert DateTime to Date format
 dataTrips['Start_Date'] = pd.to_datetime(dataTrips['Start_Date'], errors='coerce')
@@ -125,12 +120,13 @@ print(max(dataTrips['pickups']))
 
 
 
+def ProccessingData(self, x):
+    return x
 
 
 
-
-
-
+def plots(self, x):
+    pass
 
 
 
