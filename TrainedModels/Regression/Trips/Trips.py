@@ -10,10 +10,25 @@ import os
 
 
 
-class Model():
+class ModelLinearRegression():
     def __init__(self):
         pass
     
+    
+class ModelTree():
+    def __init__(self):
+        pass
+
+
+
+def saveModel():
+    pass
+
+def plot():
+    pass
+
+
+
 
 # ## Build AI Model
 # from sklearn.model_selection import train_test_split
@@ -70,8 +85,6 @@ class Model():
 
 
 
-
-
 # Display map
 # import folium
 
@@ -88,8 +101,6 @@ class Model():
 # # Open the map in your default web browser
 # import webbrowser
 # webbrowser.open("my_map.html", new=2)
-
-
 
 
 
