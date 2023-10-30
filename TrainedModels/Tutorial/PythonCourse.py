@@ -1047,45 +1047,189 @@
 
 
 
+#################################
+# Pandas
+# import pandas as pd
+
+# data = [1, 2, 7]
+
+# Series
+# var = pd.Series(data)
+# print(var)
+
+
+# Labels
+# var = pd.Series(data, index=["x", "y", "z"])
+# print(var)
+# print(var["y"])
+
+
+# # Key/Value Objects as Series
+# calories = {"day1": 420, "day2": 380, "day3": 390}
+# var = pd.Series(calories)
+# print(var)
+
+
+# calories = {"day1": 420, "day2": 380, "day3": 390}
+# myvar = pd.Series(calories, index = ["day1", "day2"])
+# print(myvar)
+
+
+
+
+# DataFrames
+# data = {
+#         "calories": [420, 380, 390],
+#         "duration": [50, 40, 45]
+#         }
+# print(data)
+# df = pd.DataFrame(data)
+# print(df)
+
+
+# Locate Row
+#refer to the row index:
+# print(df.loc[0])
+
+
+# Return row 0 and 1:
+# print(df.loc[[0, 1]])
+
+
+
+# #refer to the named index:
+# df = pd.DataFrame(data, index = ["day1", "day2", "day3"])
+# print(df.loc["day1"])
+
+
+# Read CSV
+# df = pd.read_csv('data.csv')
+# use to_string() to print the entire DataFrame.
+# print(df.to_string())
+# print(df)
+
+# print(pd.options.display.max_rows)
+
+
+
+# Read JSON
+# df = pd.read_json('data.json')
+# print(df)
+
+# Get a quick overview by printing the first 10 rows of the DataFrame:
+# print(df.head(10))
+
+# Print the first 5 rows of the DataFrame:
+# print(df.head())
+# The tail() method returns the headers and a specified number of rows, starting from the bottom.
+# print(df.tail())
+
+
+
+# Cleaning Empty Cells
+# df = pd.read_csv('data.csv')
+# print("The initial df data", df.size)
+
+# Return a new Data Frame with no empty cells:
+# new_df = df.dropna()
+# print("New df", new_df.size)
+
+
+# Remove all rows with NULL values:
+# If you want to change the original DataFrame, use the inplace = True argument:
+# df.dropna(inplace=True)
+# print(df.size)
+
+
+# The fillna() method allows us to replace empty cells with a value:
+# Replace NULL values with the number 130:
+# df.fillna(130, inplace=True)
+
+
+# Replace NULL values in the "Calories" columns with the number 130:
+# df["Calories"].fillna(130, inplace=True)
+
+
+# Mean = the average value (the sum of all values divided by number of values).
+# Calculate the MEAN, and replace any empty values with it:
+# x = df["Calories"].mean()
+# df["Calories"].fillna(x, inplace=True)
+
+
+# Median = the value in the middle, after you have sorted all values ascending.
+# Calculate the MEDIAN, and replace any empty values with it:
+# y = df["Calories"].median()
+# df["Calories"].fillna(y, inplace=True)
+
+
+
+# Mode = the value that appears most frequently.
+# Calculate the MODE, and replace any empty values with it:
+# z = df["Calories"].mode()[0]
+# df["Calories"].fillna(z, inplace=True)
+
+
+# Set "Duration" = 45 in row 7:
+# df.loc[7, 'Duration'] = 45
+
+
+
+# To replace wrong data for larger data sets you can create some rules,
+# e.g. set some boundaries for legal values, and replace any values that are outside of the boundaries.
+# for x in df.index:
+#     if df.loc[x, "Duration"] > 120:
+#         df.loc[x, "Duration"] = 120
+
+
+# for x in df.index:
+#   if df.loc[x, "Duration"] > 120:
+#     df.drop(x, inplace = True)
+
+
+
+# Discovering Duplicates
+# print(df.duplicated())
+
+# df.drop_duplicates(inplace=True)
+
+
+
+# Finding Relationships
+# The corr() method calculates the relationship between each column in your data set.
+# print(df.corr())
+
+# The Result of the corr() method is a table with a lot of numbers that represents how well the relationship is between two columns.
+# The number varies from -1 to 1.
+# 1 means that there is a 1 to 1 relationship (a perfect correlation), and for this data set, each time a value went up in the first column, 
+# the other one went up as well.
+# 0.9 is also a good relationship, and if you increase one value, the other will probably increase as well.
+# -0.9 would be just as good relationship as 0.9, but if you increase one value, the other will probably go down.
+# 0.2 means NOT a good relationship, meaning that if one value goes up does not mean that the other will.
 
 
 
 
 
 
+# import pandas as pd
+
+# data = [[50, True], [40, False], [30, False]]
+# df = pd.DataFrame(data)
+
+# Return the the value of the second [1] row of the first [0] column:
+# print(df.iloc[1, 0])
 
 
+# Definition and Usage
+# The iloc property gets, or sets, the value(s) of the specified indexes.
+
+# Specify both row and column with an index.
 
 
+# Specify columns by including their indexes in another list:
+# print(df.iloc[[0,2], [0,1]])
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# print(df.iloc[0:2])
 
 
 

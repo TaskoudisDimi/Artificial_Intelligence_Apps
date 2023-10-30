@@ -20,6 +20,80 @@
 
 
 ##############################################################
+### Simple first Neural Network
+# import torch
+# import torch.nn as nn
+
+# inputs = 10
+# hidden = 5
+# batch = 10
+# out = 1
+
+
+# # As neural network includes a combination of input data to get the respective output data, we will be following the same procedure as given below
+# x = torch.randn(batch, inputs)
+# print(x.shape)
+# y = torch.tensor([[1.0], [0.0], [0.0], 
+# [1.0], [1.0], [1.0], [0.0], [0.0], [1.0], [1.0]])
+
+
+# # Create a sequential model with the help of in-built functions. Using the below lines of code, create a sequential model
+# model = nn.Sequential(nn.Linear(inputs, hidden),
+#                       nn.ReLU(),
+#                       nn.Linear(hidden, out),
+#                       nn.Sigmoid())
+
+# # Construct the loss function with the help of Gradient Descent optimizer as shown below
+# criterion = torch.nn.MSELoss()
+# optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+
+# # Implement the gradient descent model with the iterating loop with the given lines of code 
+# # Gradient Descent
+# for epoch in range(50):
+#    # Forward pass: Compute predicted y by passing x to the model
+#    y_pred = model(x)
+
+#    # Compute and print loss
+#    loss = criterion(y_pred, y)
+#    print('epoch: ', epoch,' loss: ', loss.item())
+
+#    # Zero gradients, perform a backward pass, and update the weights.
+#    optimizer.zero_grad()
+
+#    # perform a backward pass (backpropagation)
+#    loss.backward()
+
+#    # Update the parameters
+#    optimizer.step()
+    
+
+
+
+# A PyTorch tensor is identical to a NumPy array. A tensor is an n-dimensional array and with respect to PyTorch, 
+# it provides many functions to operate on these tensors.
+
+# PyTorch tensors usually utilize GPUs to accelerate their numeric computations. 
+# These tensors which are created in PyTorch can be used to fit a two-layer network to random data. 
+# The user can manually implement the forward and backward passes through the network.
+
+
+# Variables and Autograd
+# When using autograd, the forward pass of your network will define a computational graph − nodes in the graph will be Tensors, 
+# and edges will be functions that produce output Tensors from input Tensors.
+
+# PyTorch Tensors can be created as variable objects where a variable represents a node in computational graph.
+
+
+
+# Multiprocessing
+# Multiprocessing supports the same operations, so that all tensors work on multiple processors. 
+# The queue will have their data moved into shared memory and will only send a handle to another process.
+
+
+
+
+
+##############################################################
 ### Simple CNN model for Iris dataset
 # import torch
 # import torch.nn as nn
@@ -45,13 +119,17 @@
 
 # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=42)
 
+#Convert from Array to Tensor
 # X_train_Tensor = torch.tensor(X_train, dtype=torch.float32)
 # y_train_Tensor = torch.tensor(y_train, dtype=torch.int64)
 # X_test_Tensor = torch.tensor(X_test, dtype=torch.float32)
 # y_test_Tensor = torch.tensor(y_test, dtype=torch.int64)
 
-
+# The Dataset class is an abstract class that is used to define new types of (customs) datasets. Instead, 
+# the TensorDataset is a ready to use class to represent your data as list of tensors
 # train_dataset = TensorDataset(X_train_Tensor, y_train_Tensor)
+# The PyTorch DataLoader class is a utility class that is used to load data from a dataset and create mini-batches 
+# for training deep learning models
 # train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 
 
@@ -485,32 +563,32 @@
 # Update weights
 # Next forward and backwards
 
-import numpy as np
+# import numpy as np
 
-X = np.array([1,2,3,4], dtype=np.float32)
-Y = np.array([2,4,6,8], dtype=np.float32)
-
-
-w = 0.0
-
-#model prediction
-def forward(x):
-    return w * x
+# X = np.array([1,2,3,4], dtype=np.float32)
+# Y = np.array([2,4,6,8], dtype=np.float32)
 
 
-#loss = MSE
-def loss(y, y_predicted):
-          return ((y_predicted-y)**2).mean()
+# w = 0.0
+
+# #model prediction
+# def forward(x):
+#     return w * x
+
+
+# #loss = MSE
+# def loss(y, y_predicted):
+#           return ((y_predicted-y)**2).mean()
      
      
-# gradient
-# MSE = 1/N * (w*x -y)**2
-# dj/dw = 1/N 2x (w*x -y)
-def gradient(x, y, y_predicted):
-    return np.dot(2*x, y_predicted-y).mean()
+# # gradient
+# # MSE = 1/N * (w*x -y)**2
+# # dj/dw = 1/N 2x (w*x -y)
+# def gradient(x, y, y_predicted):
+#     return np.dot(2*x, y_predicted-y).mean()
 
 
-print(f'Prediction before training: f(5) = {forward(5):.3f}')
+# print(f'Prediction before training: f(5) = {forward(5):.3f}')
 
 
 
