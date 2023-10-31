@@ -61,12 +61,14 @@
 #    optimizer.zero_grad()
 
 #    # perform a backward pass (backpropagation)
-#    loss.backward()
+#   Backpropagation is the essence of neural net training. It is the practice of fine-tuning the weights of a neural net 
+#   based on the error rate (i.e. loss) obtained in the previous epoch (i.e. iteration.) Proper tuning of the weights 
+#   ensures lower error rates, making the model reliable by increasing its generalization.
+#   loss.backward()
 
 #    # Update the parameters
 #    optimizer.step()
     
-
 
 
 # A PyTorch tensor is identical to a NumPy array. A tensor is an n-dimensional array and with respect to PyTorch, 
@@ -83,13 +85,9 @@
 
 # PyTorch Tensors can be created as variable objects where a variable represents a node in computational graph.
 
-
-
 # Multiprocessing
 # Multiprocessing supports the same operations, so that all tensors work on multiple processors. 
 # The queue will have their data moved into shared memory and will only send a handle to another process.
-
-
 
 
 
@@ -222,7 +220,7 @@
 # learning_rate = 0.001
 # num_epochs = 10
 
-
+# Composes several transforms together.Transforms are common image transformations. They can be chained together using Compose . Additionally, there is the torchvision. transforms. functional module.
 # transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
 
 # train_dataset = torchvision.datasets.MNIST(root='./data', train=True, transform=transform, download=True)
