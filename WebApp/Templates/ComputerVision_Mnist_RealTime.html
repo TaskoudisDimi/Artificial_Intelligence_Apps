@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mnist Real-Time</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h2 class="title text-center">Real Time</h2>
@@ -21,8 +23,15 @@
         </div>
     </div>
 
+    <form action="/ComputerVision_MNIST" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
+    <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
+
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>   
     <script src="//d3js.org/d3.v5.min.js"></script>
+
+     <!-- Add Bootstrap and jQuery JS links -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

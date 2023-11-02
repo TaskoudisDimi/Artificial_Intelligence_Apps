@@ -3,27 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regression</title>
+    <title>English To German Translator</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="title">
-        <h2 class="title text-center">These are some examples of <b>Language AI - NLP</b> models</h2>
-    </div>
-
     <div class="container">
-        <div class="btn-container">
-            <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
-            <form action="/English_To_German" method="post" accept=".txt">
-                <input type="file" name="text" accept=".txt">
-                <input type="submit" value="Predict">
-            </form>
+        <h2 class="text-center">English To German Translator</h2>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form id="translation-form">
+                    <div class="form-group">
+                        <label for="english-text">Enter English Text:</label>
+                        <input type="text" class="form-control" id="english-text" placeholder="Enter text to translate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="german-translation">German Translation:</label>
+                        <p id="german-translation"></p>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-    
-    <!-- Add Bootstrap and jQuery JS links -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <form action="/LanguageTechnology" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
+    <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
+
+
+    <script>
+        // Get references to the input and translation elements
+        const englishInput = document.getElementById("english-text");
+        const germanTranslation = document.getElementById("german-translation");
+
+        // Add an event listener for input changes
+        englishInput.addEventListener("input", function () {
+            // Get the user's input from the form
+            const englishText = englishInput.value;
+
+            // You'll need to make an API request to your pretrained NLP model
+            // to translate the text from English to German. This example assumes
+            // you have an API endpoint for translation.
+            // Replace 'YOUR_TRANSLATION_API_ENDPOINT' with your actual endpoint.
+            const apiUrl = 'YOUR_TRANSLATION_API_ENDPOINT';
+
+            // Create a new XMLHttpRequest
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", apiUrl, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            // Define a function to handle the response
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Parse the response and display the translated text
+                    const data = JSON.parse(xhr.responseText);
+                    germanTranslation.textContent = data.translation;
+                }
+            };
+
+            // Send the POST request with the English text
+            const requestData = JSON.stringify({ englishText });
+            xhr.send(requestData);
+        });
+    </script>
 </body>
 </html>

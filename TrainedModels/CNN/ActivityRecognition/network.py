@@ -1,8 +1,5 @@
-# encoding=utf-8
-"""
-    Created on 10:41 2018/11/10 
-    @author: Jindong Wang
-"""
+
+
 import torch.nn as nn
 import torch.nn.functional as F
 

@@ -1,8 +1,4 @@
-# encoding=utf-8
-"""
-    Created on 10:38 2018/11/10 
-    @author: Jindong Wang
-"""
+
 
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
@@ -37,10 +33,7 @@ def format_data_y(datafile):
 
 
 # Load data function, if there exists parsed data file, then use it
-# If not, parse the original dataset from scratch
 def load_data():
-        # This for processing the dataset from scratch
-        # After downloading the dataset, put it to somewhere that str_folder can find
     str_folder = "C:/Users/chris/Desktop/Dimitris/Tutorials/Activity/Activity/Dataset/Dataset/"
     print(str_folder)
     INPUT_SIGNAL_TYPES = [
@@ -114,7 +107,7 @@ def load(batch_size=64):
 
 
 
-
+x_train, y_train, x_test, y_test = load_data()
 
 
 

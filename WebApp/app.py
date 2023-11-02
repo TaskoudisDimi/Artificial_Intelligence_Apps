@@ -11,6 +11,8 @@ from torchvision import transforms
 from Models.Mnist.model import Model
 import io
 from Models.Cifar.Net import Net
+from Models.Mnist.PredictModel import Predict
+
 
 SAVE_MODEL_PATH = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/best_accuracy.pth"
 
@@ -380,6 +382,8 @@ def predict():
 def predict_image(image_path):
     # Preprocess the input image
     input_image = preprocess_image(image_path)
+    print(type(input_image))
+    print(len(input_image))
     
     # Make predictions
     with torch.no_grad():

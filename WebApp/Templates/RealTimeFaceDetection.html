@@ -9,6 +9,22 @@
 <body>
     <h1 class="title text-center">Real Time Face Detection</h1>
     
+    <a>There are some steps in order to Recognize your face</a>
+    <ul>
+        <li>
+            Step 1: Take Photos by clicking button "Take Photo"
+            You can take as many photos as you want and for as many faces as you want.
+            <button id="takePhotos" class="btn btn-primary">Take Photos</button>
+        </li>
+        <li>
+            Step 2: Train my model by pressing the "train" button.
+            <form action="/" method="get"><button type="submit" class="btn btn-primary">Train the model</button></form>
+        </li>
+        <li>
+            Step 3: Face recognition based on the photos you took.
+            <form action="/" method="get"><button type="submit" class="btn btn-primary">Recognize</button></form>
+        </li>
+    </ul>
     
     <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
     <form action="/ComputerVision" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
@@ -17,6 +33,48 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
+    <script>
+        const takePhotosButton = document.getElementById('takePhotos');
+        takePhotosButton.addEventListener('click', () => {
+            // Open the camera when the button is clicked
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(stream) {
+                        const videoElement = document.createElement('video');
+                        videoElement.srcObject = stream;
+                        document.body.appendChild(videoElement);
+                        // Capture a photo when the user clicks
+                        videoElement.addEventListener('click', () => {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = videoElement.videoWidth;
+                            canvas.height = videoElement.videoHeight;
+                            canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                            const photoDataUrl = canvas.toDataURL('image/jpeg');
+                            // Send the captured image to your Flask endpoint (adjust the URL accordingly)
+                            fetch('/capture_photo', {
+                                method: 'POST',
+                                body: JSON.stringify({ image: photoDataUrl }),
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    alert('Photo captured and sent successfully.');
+                                } else {
+                                    alert('Failed to capture and send the photo.');
+                                }
+                            });
+                            // Stop the camera stream and remove the video element
+                            stream.getTracks().forEach(track => track.stop());
+                            document.body.removeChild(videoElement);
+                        });
+                    })
+                    .catch(function(error) {
+                        console.error('Error accessing camera: ' + error);
+                    });
+            }
+        });
+    </script>
 </body>
 </html>
