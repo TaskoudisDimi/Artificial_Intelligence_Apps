@@ -12,6 +12,14 @@ from Models.Mnist.model import Model
 import io
 from Models.Cifar.Net import Net
 from Models.Mnist.PredictModel import Predict
+from Models.Chatbot.PretrainedChatbot.Model import ChatBot
+
+
+# TODO: Activity Recognition
+# TODO: Languange Technology
+# TODO: Real-Time Face Detection
+# TODO: Reinforcement Learning
+# TODO: Chat Bot
 
 
 SAVE_MODEL_PATH = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/best_accuracy.pth"
@@ -451,6 +459,36 @@ def English_To_German_Predict():
 @app.route('/ReinforcementLearning', methods=['GET'])
 def ReinforcementLearning():
     return render_template('ReinforcementLearning.html')
+
+
+### Chat Bot
+@app.route('/Chatbot', methods=['GET'])
+def Chat_bot():
+    return render_template('Chatbot.html')
+
+
+@app.route('/PretrainedChatbot', methods=['GET'])
+def Chat_PretrainedChatbotbot():
+    return render_template('PretrainedChatbot.html')
+
+@app.route('/CustomChatbot', methods=['GET'])
+def CustomChatbot():
+    return render_template('CustomChatbot.html')
+
+
+bot = ChatBot()
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_input = request.form['user_input']
+
+    if user_input.lower().strip() in ['bye', 'quit', 'exit']:
+        bot.end_chat = True
+        return "ChatBot: See you soon! Bye!"
+
+    bot.new_user_input_ids = bot.tokenizer.encode(user_input + bot.tokenizer.eos_token, return_tensors='pt')
+    bot_response = bot.bot_response()
+
+    return "ChatBot: " + bot_response
 
 
 

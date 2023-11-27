@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regression</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Pretrained ChatBot</h1>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+        <form id="user-input-form">
+            <input type="text" id="user-input" placeholder="Type your message here..." autocomplete="off">
+            <input type="submit" value="Send">
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="btn-container">
+            <form action="/Chatbot" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
+            <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
+        </div>
+    </div>
+
+    
+    <script>
+        document.getElementById('user-input-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() !== '') {
+                document.getElementById('chat-log').innerHTML += '<p>User: ' + userInput + '</p>';
+                fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'user_input=' + userInput
+                })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('chat-log').innerHTML += '<p>ChatBot: ' + data + '</p>'; // Display Bot's response
+                })
+                .catch(error => console.error('Error:', error));
+            }
+            document.getElementById('user-input').value = '';
+        });
+    </script>
+</body>
+</html>

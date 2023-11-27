@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regression</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Custom ChatBot</h1>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+        <form id="user-input-form">
+            <input type="text" id="user-input" placeholder="Type your message here..." autocomplete="off">
+            <input type="submit" value="Send">
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="btn-container">
+            <form action="/Chatbot" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
+            <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
+        </div>
+    </div>
+
+
+</body>
+</html>
