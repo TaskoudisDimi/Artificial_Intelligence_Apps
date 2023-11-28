@@ -16,9 +16,10 @@
             <input type="submit" value="Send">
         </form>
     </div>
-
+    
     <div class="container">
         <div class="btn-container">
+            <form action="/PretrainedChatbot" method="get"><button type="submit" class="btn btn-primary">Clear Chat</button></form>
             <form action="/Chatbot" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
             <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
         </div>
@@ -31,7 +32,7 @@
             const userInput = document.getElementById('user-input').value;
             if (userInput.trim() !== '') {
                 document.getElementById('chat-log').innerHTML += '<p>User: ' + userInput + '</p>';
-                fetch('/chat', {
+                fetch('/PretrainedChat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -46,6 +47,7 @@
             }
             document.getElementById('user-input').value = '';
         });
+
     </script>
 </body>
 </html>

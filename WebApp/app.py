@@ -13,7 +13,7 @@ import io
 from Models.Cifar.Net import Net
 from Models.Mnist.PredictModel import Predict
 from Models.Chatbot.PretrainedChatbot.Model import ChatBot
-
+from Models.Chatbot.CustomChatbot.model import response
 
 # TODO: Activity Recognition
 # TODO: Languange Technology
@@ -471,24 +471,36 @@ def Chat_bot():
 def Chat_PretrainedChatbotbot():
     return render_template('PretrainedChatbot.html')
 
+
+bot = ChatBot()
+@app.route('/PretrainedChat', methods=['POST'])
+def PretainedChat():
+    user_input = request.form['user_input']
+    if user_input.lower().strip() in ['bye', 'quit', 'exit']:
+        bot.end_chat = True
+        return "ChatBot: See you soon! Bye!"
+    bot.new_user_input_ids = bot.tokenizer.encode(user_input + bot.tokenizer.eos_token, return_tensors='pt')
+    bot_response = bot.bot_response()
+    return "ChatBot: " + bot_response
+
+
+
+
 @app.route('/CustomChatbot', methods=['GET'])
 def CustomChatbot():
     return render_template('CustomChatbot.html')
 
 
-bot = ChatBot()
-@app.route('/chat', methods=['POST'])
-def chat():
+
+@app.route('/CustomChat', methods=['POST'])
+def CustomChat():
     user_input = request.form['user_input']
-
     if user_input.lower().strip() in ['bye', 'quit', 'exit']:
-        bot.end_chat = True
+        
         return "ChatBot: See you soon! Bye!"
-
-    bot.new_user_input_ids = bot.tokenizer.encode(user_input + bot.tokenizer.eos_token, return_tensors='pt')
-    bot_response = bot.bot_response()
-
+    bot_response = response(user_input)
     return "ChatBot: " + bot_response
+
 
 
 
