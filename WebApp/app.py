@@ -18,64 +18,67 @@ from Models.Chatbot.CustomChatbot.model import response
 # TODO: Activity Recognition
 # TODO: Languange Technology
 # TODO: Real-Time Face Detection
-# TODO: Reinforcement Learning
-# TODO: Chat Bot
 
 
-SAVE_MODEL_PATH = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/best_accuracy.pth"
+# SAVE_MODEL_PATH = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/best_accuracy.pth"
+SAVE_MODEL_PATH = "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/best_accuracy.pth"
+
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 
 ### IRIS Classification Models ### Model based on Text classification
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
-# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
 SVM_Iris_model = joblib.load(model_filename)
 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
-# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
 KNN_Iris_model = joblib.load(model_filename)
 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
-# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
 KNearestCentroid_Iris_model = joblib.load(model_filename)
 
 ### IRIS Clustering Model ### 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
-# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
 KMeans_Iris_model = joblib.load(model_filename)
 
 
 ### BreastCancer Clustering Model ### 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
-# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
 KMeans_breast_cancer_model = joblib.load(model_filename)
 
 
 # Load the saved KMeans model and StandardScaler
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
-# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
 scaler = joblib.load(model_filename)
 
 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
-# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
 Regression_Iris_model = joblib.load(model_filename)
 
 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl'
-# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
 Regression_House_model = joblib.load(model_filename)
 
 
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl'
-# model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl'
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
 Regression_House_model = joblib.load(model_filename)
 
 
 
 # Load Cifar-10 CNN model
-model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pth'  # Adjust the path as needed
+# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pth'  # Adjust the path as needed
+model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pth'  # Adjust the path as needed
+
+
 cifar10_model = Net()
 cifar10_model.load_state_dict(torch.load(model_filename))
 cifar10_model.eval()  # Set the model to evaluation mode
@@ -303,6 +306,7 @@ def ComputerVision_MNIST_RealTime():
  
 @app.route("/predict_uploaded_image", methods=["POST"])
 def predict_uploaded_image():
+
     img = Image.open(request.files["img"]).convert("L")
 
     # predict
@@ -369,12 +373,9 @@ class Predict():
         return preds
     
 
-
-
 @app.route('/ComputerVision_CIFAR', methods=['GET'])
 def ComputerVision_CIFAR():
     return render_template('ComputerVision_CIFAR10.html')
-
 
 @app.route('/ComputerVision_CIFAR_predict', methods=['POST'])
 def predict():
@@ -385,7 +386,6 @@ def predict():
         predicted_class = predict_image(temp_image_path)
         return render_template('ComputerVision_CIFAR10.html', prediction_result=predicted_class)
     
-
 
 def predict_image(image_path):
     # Preprocess the input image
@@ -428,6 +428,50 @@ def preprocess_image(image_path):
 @app.route('/RealTimeFaceDetection', methods=['GET'])
 def RealTimeFaceDetection():
     return render_template('RealTimeFaceDetection.html')
+
+
+@app.route('/capture_photo', methods=['POST'])
+def capture_photo():
+    # Capture and save the photo
+    image_data = request.json.get('image')
+
+    if image_data:
+        img_path = save_photo(image_data)
+        return jsonify({'message': 'Photo captured successfully', 'img_path': img_path})
+    else:
+        return jsonify({'message': 'Failed to capture the photo'}), 400
+
+import base64
+from datetime import datetime
+
+    
+def save_photo(image_data):
+    # Ensure the 'faces' directory exists
+    if not os.path.exists('faces'):
+        os.makedirs('faces')
+
+    try:
+        # Decode base64 image data and convert to numpy array
+        img_data = base64.b64decode(image_data.split(',')[1])
+        nparr = np.frombuffer(img_data, np.uint8)
+        # Decode image using OpenCV
+        img = cv.imdecode(nparr, cv.IMREAD_COLOR)
+
+        if img is not None:
+            # Generate a unique file name based on the timestamp
+            img_name = f'faces/photo_{datetime.now().strftime("%Y%m%d%H%M%S")}.jpg'
+            # Save the image to file
+            cv.imwrite(img_name, img)
+
+            return img_name  # Return the path where the image is saved
+        else:
+            print("Failed to decode image.")
+            return None
+    except Exception as e:
+        print(f"Error saving photo: {e}")
+        return None
+
+
 
 
 
@@ -485,11 +529,9 @@ def PretainedChat():
 
 
 
-
 @app.route('/CustomChatbot', methods=['GET'])
 def CustomChatbot():
     return render_template('CustomChatbot.html')
-
 
 
 @app.route('/CustomChat', methods=['POST'])

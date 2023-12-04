@@ -72,10 +72,15 @@ def bag_of_words(tokenized_sentence, words):
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-with open('C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/intents.json', 'r') as json_data:
+# with open('C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/intents.json', 'r') as json_data:
+#     intents = json.load(json_data)
+
+with open('D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/intents.json', 'r') as json_data:
     intents = json.load(json_data)
 
-FILE = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/data.pth"
+# FILE = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/data.pth"
+FILE = "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/data.pth"
+
 data = torch.load(FILE)
 
 input_size = data["input_size"]
@@ -88,9 +93,6 @@ model_state = data["model_state"]
 model = NeuralNet(input_size, hidden_size, output_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
-
-    
-
 
 
 def response(user):
