@@ -3,6 +3,7 @@ import torch
 from Models.Mnist.model import Model
 from PIL import Image, ImageChops, ImageOps
 
+
 SAVE_MODEL_PATH = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/best_accuracy.pth"
 
 

@@ -8,6 +8,24 @@ from nltk.stem.porter import PorterStemmer
 
 
 
+def load_paths(tag):
+    with open('C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Paths.json', 'r') as file:
+        config  = json.load(file)
+
+    if tag in config["Paths"]:
+        paths = config["Paths"][tag]
+        return paths
+    else:
+        raise ValueError(f"Tag '{tag}' not found in the configuration file.")
+    
+selected_tag = "Office"  # Change this tag based on your environment
+selected_paths = load_paths(selected_tag)
+
+with open(f'{selected_paths["intents"]}', 'r') as json_data:
+    intents = json.load(json_data)
+
+FILE = selected_paths["MyChatBot"]
+
 class NeuralNet(nn.Module):
     def __init__(self, input_size, hidden_size, num_classes):
         super(NeuralNet, self).__init__()
@@ -68,18 +86,7 @@ def bag_of_words(tokenized_sentence, words):
     return bag
 
 
-
-
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-# with open('C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/intents.json', 'r') as json_data:
-#     intents = json.load(json_data)
-
-with open('D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/intents.json', 'r') as json_data:
-    intents = json.load(json_data)
-
-# FILE = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/data.pth"
-FILE = "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/data.pth"
 
 data = torch.load(FILE)
 

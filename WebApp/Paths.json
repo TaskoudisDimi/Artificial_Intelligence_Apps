@@ -1,0 +1,35 @@
+{
+    "Paths": {
+        "Home": {
+            "SAVE_MODEL_PATH": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/best_accuracy.pth",
+            "SVM_Iris_model": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl",
+            "KNN_Iris_model": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl",
+            "KNearestCentroid_Iris_model": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl",
+            "KMeans_Iris_model": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl",
+            "KMeans_breast_cancer_model": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl",
+            "scaler": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl",
+            "Regression_Iris_model": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl",
+            "Regression_House_model": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl",
+            "Cifar_model_filename": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pth",
+            "intents": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/intents.json",
+            "MyChatBot": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/data.pth",
+            "Englist_To_German_model": "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/translate_model_with_vocab.pth"
+
+        },
+        "Office": {
+            "SAVE_MODEL_PATH": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/best_accuracy.pth",
+            "SVM_Iris_model": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl",
+            "KNN_Iris_model": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl",
+            "KNearestCentroid_Iris_model": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl",
+            "KMeans_Iris_model": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl",
+            "KMeans_breast_cancer_model": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl",
+            "scaler": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl",
+            "Regression_Iris_model": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl",
+            "Regression_House_model": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl",
+            "Cifar_model_filename": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pth",
+            "intents": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/intents.json",
+            "MyChatBot": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/data.pth",
+            "Englist_To_German_model": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/translate_model_with_vocab.pth"
+        }
+    }
+}

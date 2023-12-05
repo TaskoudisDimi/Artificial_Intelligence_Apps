@@ -14,78 +14,77 @@ from Models.Cifar.Net import Net
 from Models.Mnist.PredictModel import Predict
 from Models.Chatbot.PretrainedChatbot.Model import ChatBot
 from Models.Chatbot.CustomChatbot.model import response
+import base64
+from datetime import datetime
+# from Models.Translate.Transformer import Seq2SeqTransformer, translate
+
 
 # TODO: Activity Recognition
 # TODO: Languange Technology
 # TODO: Real-Time Face Detection
 
-
-# SAVE_MODEL_PATH = "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/best_accuracy.pth"
-SAVE_MODEL_PATH = "D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/best_accuracy.pth"
-
-
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
+def load_paths(tag):
+    with open('C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Paths.json', 'r') as file:
+        config  = json.load(file)
+
+    if tag in config["Paths"]:
+        paths = config["Paths"][tag]
+        return paths
+    else:
+        raise ValueError(f"Tag '{tag}' not found in the configuration file.")
+    
+selected_tag = "Office"  # Change this tag based on your environment
+selected_paths = load_paths(selected_tag)
+
+SAVE_MODEL_PATH = selected_paths["SAVE_MODEL_PATH"]
 
 ### IRIS Classification Models ### Model based on Text classification
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/svm_model_iris.pkl'
-SVM_Iris_model = joblib.load(model_filename)
-
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/KNN_model_iris.pkl'
-KNN_Iris_model = joblib.load(model_filename)
-
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Nearest_model_iris.pkl'
-KNearestCentroid_Iris_model = joblib.load(model_filename)
+SVM_Iris_model = joblib.load(selected_paths["SVM_Iris_model"])
+KNN_Iris_model = joblib.load(selected_paths["KNN_Iris_model"])
+KNearestCentroid_Iris_model = joblib.load(selected_paths["KNearestCentroid_Iris_model"])
 
 ### IRIS Clustering Model ### 
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_iris.pkl'
-KMeans_Iris_model = joblib.load(model_filename)
-
+KMeans_Iris_model = joblib.load(selected_paths["KMeans_Iris_model"])
 
 ### BreastCancer Clustering Model ### 
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/kmeans_breast_cancer_model.pkl'
-KMeans_breast_cancer_model = joblib.load(model_filename)
-
+KMeans_breast_cancer_model = joblib.load(selected_paths["KMeans_breast_cancer_model"])
 
 # Load the saved KMeans model and StandardScaler
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/scaler_breast_cancer.pkl'
-scaler = joblib.load(model_filename)
+scaler = joblib.load(selected_paths["KNearestCentroid_Iris_model"])
 
-
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
-Regression_Iris_model = joblib.load(model_filename)
-
-
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
-Regression_House_model = joblib.load(model_filename)
-
-
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/Regression_CaliforniaHouses.pkl'
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/iris_regression_model.pkl'
-Regression_House_model = joblib.load(model_filename)
-
+Regression_Iris_model = joblib.load(selected_paths["Regression_Iris_model"])
+Regression_House_model = joblib.load(selected_paths["Regression_House_model"])
 
 
 # Load Cifar-10 CNN model
-# model_filename = 'C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pth'  # Adjust the path as needed
-model_filename = 'D:/Programming/AI_Detector_WebApp/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pth'  # Adjust the path as needed
-
-
 cifar10_model = Net()
-cifar10_model.load_state_dict(torch.load(model_filename))
+cifar10_model.load_state_dict(torch.load(selected_paths["Cifar_model_filename"]))
 cifar10_model.eval()  # Set the model to evaluation mode
 class_names = [
     'airplane', 'automobile', 'bird', 'cat', 'deer',
     'dog', 'frog', 'horse', 'ship', 'truck'
 ]
+
+
+# Englist_To_German_model = joblib.load(selected_paths["Englist_To_German_model"])
+
+# EMB_SIZE = 512
+# NHEAD = 8
+# FFN_HID_DIM = 512
+# BATCH_SIZE = 128
+# NUM_ENCODER_LAYERS = 3
+# NUM_DECODER_LAYERS = 3
+
+# checkpoint = torch.load(Englist_To_German_model, map_location=torch.device('cpu'))
+
+# Translator = Seq2SeqTransformer(NUM_ENCODER_LAYERS, NUM_DECODER_LAYERS, EMB_SIZE,
+#                            NHEAD, checkpoint['SRC_VOCAB_SIZE'], checkpoint['TGT_VOCAB_SIZE'], FFN_HID_DIM)
+
+# Translator.load_state_dict(checkpoint['model_state_dict'])
+# Translator.eval()
+
 
 
 
@@ -333,46 +332,6 @@ def predict_digit():
     return json.dumps(res_json)
 
 
-class Predict():
-    def __init__(self):
-        device = torch.device("cpu")
-        self.model = Model().to(device)
-        self.model.load_state_dict(torch.load(SAVE_MODEL_PATH, map_location=device))
-        self.transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
-
-    def _centering_img(self, img):
-        w, h = img.size[:2]
-        left, top, right, bottom = w, h, -1, -1
-        imgpix = img.getdata()
-
-        for y in range(h):
-            offset_y = y * w
-            for x in range(w):
-                if imgpix[offset_y + x] > 0:
-                    left = min(left, x)
-                    top = min(top, y)
-                    right = max(right, x)
-                    bottom = max(bottom, y)
-
-        shift_x = (left + (right - left) // 2) - w // 2
-        shift_y = (top + (bottom - top) // 2) - h // 2
-        return ImageChops.offset(img, -shift_x, -shift_y)
-
-    def __call__(self, img):
-        img = ImageOps.invert(img)  # MNIST image is inverted
-        img = self._centering_img(img)
-        img = img.resize((28, 28), Image.BICUBIC)  # resize to 28x28
-        tensor = self.transform(img)
-        tensor = tensor.unsqueeze_(0)  # 1,1,28,28
-
-        self.model.eval()
-        with torch.no_grad():
-            preds = self.model(tensor)
-            preds = preds.detach().numpy()[0]
-
-        return preds
-    
-
 @app.route('/ComputerVision_CIFAR', methods=['GET'])
 def ComputerVision_CIFAR():
     return render_template('ComputerVision_CIFAR10.html')
@@ -424,7 +383,6 @@ def preprocess_image(image_path):
     return processed_image
 
 
-
 @app.route('/RealTimeFaceDetection', methods=['GET'])
 def RealTimeFaceDetection():
     return render_template('RealTimeFaceDetection.html')
@@ -441,8 +399,6 @@ def capture_photo():
     else:
         return jsonify({'message': 'Failed to capture the photo'}), 400
 
-import base64
-from datetime import datetime
 
     
 def save_photo(image_data):
@@ -474,7 +430,6 @@ def save_photo(image_data):
 
 
 
-
 @app.route('/Activity_Recognition', methods=['GET'])
 def Activity_Recognition():
     return render_template('Activity_Recognition.html')
@@ -493,10 +448,18 @@ def English_To_German():
     return render_template('English_To_German.html')
 
 
-# Language Model 
-@app.route('/English_To_German_Predict', methods=['GET'])
-def English_To_German_Predict():
-    return render_template('English_To_German.html')
+# @app.route('/English_To_German_Predict', methods=['Post'])
+# def English_To_German_Predict():
+#     if request.method == 'POST':
+#         # Get the input text from the form
+#         english_text = request.form['english_text']
+
+#         # Perform translation using the loaded PyTorch model
+#         translated_text = translate(Translator, english_text)  # Implement the translation function using your PyTorch model
+
+#         # Return the translated text as JSON response
+#         return jsonify({'translation': translated_text})
+#     return "Error"
 
 
 # Reinforcement Learning Model 
@@ -528,7 +491,6 @@ def PretainedChat():
     return "ChatBot: " + bot_response
 
 
-
 @app.route('/CustomChatbot', methods=['GET'])
 def CustomChatbot():
     return render_template('CustomChatbot.html')
@@ -542,8 +504,6 @@ def CustomChat():
         return "ChatBot: See you soon! Bye!"
     bot_response = response(user_input)
     return "ChatBot: " + bot_response
-
-
 
 
 
