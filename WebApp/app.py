@@ -12,7 +12,7 @@ from Models.Mnist.model import Model
 import io
 from Models.Cifar.Net import Net
 from Models.Mnist.PredictModel import Predict
-from Models.Chatbot.PretrainedChatbot.Model import ChatBot
+# from Models.Chatbot.PretrainedChatbot.Model import ChatBot
 from Models.Chatbot.CustomChatbot.model import response
 import base64
 from datetime import datetime
@@ -66,6 +66,10 @@ class_names = [
     'airplane', 'automobile', 'bird', 'cat', 'deer',
     'dog', 'frog', 'horse', 'ship', 'truck'
 ]
+
+from keras.models import load_model
+activity_model = load_model(selected_paths["Activity_Recognize"])
+
 
 
 # Englist_To_German_model = joblib.load(selected_paths["Englist_To_German_model"])
@@ -398,8 +402,6 @@ def capture_photo():
         return jsonify({'message': 'Photo captured successfully', 'img_path': img_path})
     else:
         return jsonify({'message': 'Failed to capture the photo'}), 400
-
-
     
 def save_photo(image_data):
     # Ensure the 'faces' directory exists
@@ -433,6 +435,23 @@ def save_photo(image_data):
 @app.route('/Activity_Recognition', methods=['GET'])
 def Activity_Recognition():
     return render_template('Activity_Recognition.html')
+
+
+
+@app.route('/Predict_Activity_Recognition', methods=['Post'])
+def PredictActivityRecognition():
+    if request.method == "Post":
+        uploaded_video = request.files['video']
+        if uploaded_video is not None:
+            print("Get the video")
+        else:
+            print("Error")
+        # prediction_result = predict_activity(video_data)
+    return render_template('Activity_Recognition.html')
+
+
+
+
 
 
 
@@ -479,16 +498,16 @@ def Chat_PretrainedChatbotbot():
     return render_template('PretrainedChatbot.html')
 
 
-bot = ChatBot()
-@app.route('/PretrainedChat', methods=['POST'])
-def PretainedChat():
-    user_input = request.form['user_input']
-    if user_input.lower().strip() in ['bye', 'quit', 'exit']:
-        bot.end_chat = True
-        return "ChatBot: See you soon! Bye!"
-    bot.new_user_input_ids = bot.tokenizer.encode(user_input + bot.tokenizer.eos_token, return_tensors='pt')
-    bot_response = bot.bot_response()
-    return "ChatBot: " + bot_response
+# bot = ChatBot()
+# @app.route('/PretrainedChat', methods=['POST'])
+# def PretainedChat():
+#     user_input = request.form['user_input']
+#     if user_input.lower().strip() in ['bye', 'quit', 'exit']:
+#         bot.end_chat = True
+#         return "ChatBot: See you soon! Bye!"
+#     bot.new_user_input_ids = bot.tokenizer.encode(user_input + bot.tokenizer.eos_token, return_tensors='pt')
+#     bot_response = bot.bot_response()
+#     return "ChatBot: " + bot_response
 
 
 @app.route('/CustomChatbot', methods=['GET'])

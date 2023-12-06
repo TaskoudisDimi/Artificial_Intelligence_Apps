@@ -11,11 +11,19 @@
     
     <h1 class="title text-center">Activity Recognition</h1>
     
-
-    <form action="" method="POST" enctype="multipart/form-data">
-        <input type="file" name="video" accept="video/*" required>
-        <button type="submit" class="btn btn-primary">Upload & Predict</button>
+    <form action="/Predict_Activity_Recognition" method="post" enctype="multipart/form-data">
+        <input type="file" id="videoInput" accept="video/mp4" name="video">
     </form>
+
+   
+    <div id="videoContainer">
+        <video id="videoPlayer" controls autoplay></video>
+    </div>
+
+
+
+
+
 
     <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
     <form action="/ComputerVision" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
@@ -24,5 +32,20 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script>
+        const videoInput = document.getElementById("videoInput");
+            const videoPlayer = document.getElementById("videoPlayer");
+            videoInput.addEventListener("change", ()=>{
+                loadvideo();
+            });
+            function loadvideo(){
+                const file = videoInput.files[0];
+                if (file){
+                    const videoURL = URL.createObjectURL(file);
+                    videoPlayer.src = videoURL;
+                }
+            }
+
+    </script>
 </body>
 </html>

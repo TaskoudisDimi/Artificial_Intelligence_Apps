@@ -29,7 +29,8 @@
             "Cifar_model_filename": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/cifar10_pytorch_model.pth",
             "intents": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/intents.json",
             "MyChatBot": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/TrainedModels/NLP/ChatBot/MyChatBot/data.pth",
-            "Englist_To_German_model": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/translate_model_with_vocab.pth"
+            "Englist_To_German_model": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/translate_model_with_vocab.pth",
+            "Activity_Recognize": "C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Models/ActivityRecognition.h5"
         }
     }
 }
