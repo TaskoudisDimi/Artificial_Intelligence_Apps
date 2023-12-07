@@ -526,6 +526,14 @@ def CustomChat():
 
 
 
+
+@app.route('/Gan', methods=['GET'])
+def Gan():
+    return render_template('FakeImage.html')
+
+
+
+
 if __name__ == '__main__':
     import os
     assert os.path.exists(SAVE_MODEL_PATH), "no saved model"
