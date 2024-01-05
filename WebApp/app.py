@@ -527,9 +527,15 @@ def CustomChat():
 
 
 
-@app.route('/Gan', methods=['GET'])
-def Gan():
+@app.route('/FakeImage', methods=['GET'])
+def FakeImage():
     return render_template('FakeImage.html')
+
+
+
+@app.route('/FromTextToImage', methods=['GET'])
+def FromTextToImage():
+    return render_template('FromTextToImage.html')
 
 
 
