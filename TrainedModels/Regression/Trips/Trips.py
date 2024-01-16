@@ -9,27 +9,6 @@ import os
 
 
 
-
-class ModelLinearRegression():
-    def __init__(self):
-        pass
-    
-    
-class ModelTree():
-    def __init__(self):
-        pass
-
-
-
-def saveModel():
-    pass
-
-def plot():
-    pass
-
-
-
-
 # ## Build AI Model
 # from sklearn.model_selection import train_test_split
 # from sklearn.linear_model import LinearRegression
@@ -101,6 +80,32 @@ def plot():
 # # Open the map in your default web browser
 # import webbrowser
 # webbrowser.open("my_map.html", new=2)
+
+
+
+
+import pypyodbc 
+
+connection_string = 'DRIVER={SQL Server};SERVER=192.168.24.177,51434;DATABASE=Ambulate;UID=sa;PWD=c0mpuc0n'
+
+cnxn = pypyodbc.connect(connection_string)
+
+cursor = cnxn.cursor()
+cursor.execute("Select Start_Date,  From IQ_Trips")
+
+for row in cursor:
+    print('row = %r' % (row,))
+
+cursor.close()
+
+
+
+
+
+
+
+
+
 
 
 
