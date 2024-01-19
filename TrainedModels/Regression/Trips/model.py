@@ -2,13 +2,10 @@ import torch
 import torch.nn as nn
 
 
-input_size = 4
-hidden_size = 128
-num_layers = 2
-output_size = 1
+
 
 class TripModel(nn.Module):
-    def __init__(self):
+    def __init__(self, input_size, hidden_size, num_layers, output_size):
         super(TripModel, self).__init__()
         self.lstm1 = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True, dropout=0.2)
         self.lstm2 = nn.LSTM(hidden_size, hidden_size, num_layers, batch_first=True, dropout=0.2)
