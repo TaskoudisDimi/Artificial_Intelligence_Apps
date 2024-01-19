@@ -84,20 +84,6 @@ import os
 
 
 
-import pypyodbc 
-
-connection_string = 'DRIVER={SQL Server};SERVER=192.168.24.177,51434;DATABASE=Ambulate;UID=sa;PWD=c0mpuc0n'
-
-cnxn = pypyodbc.connect(connection_string)
-
-cursor = cnxn.cursor()
-cursor.execute("Select Start_Date,  From IQ_Trips")
-
-for row in cursor:
-    print('row = %r' % (row,))
-
-cursor.close()
-
 
 
 
