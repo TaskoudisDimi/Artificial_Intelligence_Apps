@@ -6,49 +6,72 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>California Housing Price Prediction</h1>
+
+
+    <div class="container">
+        <h2 class="title text-center">California Housing Price Prediction</h2>
+            
+        <form action="/Regression_house" method="post">
+            <div class="form-group"><label for="medinc">Median Income (MedInc):</label>
+                <input type="text" id="medinc" name="medinc" required>
+            </div>
+            <div class="form-group"><label for="houseage">House Age (HouseAge):</label>
+                <input type="text" id="houseage" name="houseage" required>
+            </div>
+
+            <div class="form-group"><label for="averooms">Average Rooms (AveRooms):</label>
+                <input type="text" id="averooms" name="averooms" required><br>
+            </div>
+
+            <div class="form-group">
+                <label for="latitude">Latitude (Latitude):</label>
+                <input type="text" id="latitude" name="latitude" required>
+            </div>
+
     
-    <form action="/Regression_house" method="post">
-        <label for="medinc">Median Income (MedInc):</label>
-        <input type="text" id="medinc" name="medinc" required><br><br>
-        
-        <label for="houseage">House Age (HouseAge):</label>
-        <input type="text" id="houseage" name="houseage" required><br><br>
-        
-        <label for="averooms">Average Rooms (AveRooms):</label>
-        <input type="text" id="averooms" name="averooms" required><br><br>
-        
-        <label for="latitude">Latitude (Latitude):</label>
-        <input type="text" id="latitude" name="latitude" required><br><br>
-
-        <label for="longitude">Longitude (Longitude):</label>
-        <input type="text" id="longitude" name="longitude" required><br><br>
-
-        <label for="pop">Population (Population):</label>
-        <input type="text" id="pop" name="pop" required><br><br>
-
-        <label for="households">Households (Households):</label>
-        <input type="text" id="households" name="households" required><br><br>
-
-        <label for="rooms">Total Rooms (TotalRooms):</label>
-        <input type="text" id="rooms" name="rooms" required><br><br>
-        
-        <input type="submit" value="Predict" class="btn btn-primary">
-    </form>
+            <div class="form-group">            
+                <label for="longitude">Longitude (Longitude):</label>
+                <input type="text" id="longitude" name="longitude" required>
+            </div>
+            <div class="form-group">
+                <label for="pop">Population (Population):</label>
+                <input type="text" id="pop" name="pop" required>
+            </div>
+            
     
-    {% if prediction %}
-    <h2>Predicted Median House Value:</h2>
-    <p>{{ prediction }}</p>
-    {% endif %}
+            <div class="form-group">
+                <label for="households">Households (Households):</label>
+            <input type="text" id="households" name="households" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="rooms">Total Rooms (TotalRooms):</label>
+                <input type="text" id="rooms" name="rooms" required>
+            </div>
+            
+            <input type="submit" value="Predict" class="btn btn-primary">
+        </form>
+    </div>
+
     
-    {% if error %}
-    <h2>Error:</h2>
-    <p>{{ error }}</p>
-    {% endif %}
+    <div class="container">
+        <h2 class="text-center">Predicted Regression Value:</h2>
+        <p id="prediction-result">
+            {% if prediction %}
+            <h2>Predicted Median House Value:</h2>
+            <p>{{ prediction }}</p>
+            {% endif %}
+            
+            {% if error %}
+            <h2>Error:</h2>
+            <p>{{ error }}</p>
+            {% endif %}
+        </p>
+        <form action="/" method="get"><button type="submit" class="btn btn-secondary">Home</button></form>
+        <form action="/Regression" method="get"><button type="submit" class="btn btn-secondary">Back</button></form>    
+    </div>
+    
 
-
-    <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
-    <form action="/Regression" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
 
     <!-- Add Bootstrap and jQuery JS links -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
