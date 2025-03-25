@@ -11,65 +11,115 @@ from torchvision import transforms
 from Models.Mnist.model import Model
 import io
 from Models.Cifar.Net import Net
-from Models.Mnist.PredictModel import Predict
+import os
 # from Models.Chatbot.PretrainedChatbot.Model import ChatBot
 from Models.Chatbot.CustomChatbot.model import response
 import base64
 from datetime import datetime
 # from Models.Translate.Transformer import Seq2SeqTransformer, translate
-
+import gdown
 
 # TODO: Activity Recognition
 # TODO: Languange Technology
 # TODO: Real-Time Face Detection
 
-app = Flask(__name__, static_url_path='/static', static_folder='static')
-
-def load_paths(tag):
-    with open('C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Paths.json', 'r') as file:
-        config  = json.load(file)
-
-    if tag in config["Paths"]:
-        paths = config["Paths"][tag]
-        return paths
-    else:
-        raise ValueError(f"Tag '{tag}' not found in the configuration file.")
-    
-selected_tag = "Office"  # Change this tag based on your environment
-selected_paths = load_paths(selected_tag)
-
-SAVE_MODEL_PATH = selected_paths["SAVE_MODEL_PATH"]
-
-### IRIS Classification Models ### Model based on Text classification
-SVM_Iris_model = joblib.load(selected_paths["SVM_Iris_model"])
-KNN_Iris_model = joblib.load(selected_paths["KNN_Iris_model"])
-KNearestCentroid_Iris_model = joblib.load(selected_paths["KNearestCentroid_Iris_model"])
-
-### IRIS Clustering Model ### 
-KMeans_Iris_model = joblib.load(selected_paths["KMeans_Iris_model"])
-
-### BreastCancer Clustering Model ### 
-KMeans_breast_cancer_model = joblib.load(selected_paths["KMeans_breast_cancer_model"])
-
-# Load the saved KMeans model and StandardScaler
-scaler = joblib.load(selected_paths["KNearestCentroid_Iris_model"])
-
-Regression_Iris_model = joblib.load(selected_paths["Regression_Iris_model"])
-Regression_House_model = joblib.load(selected_paths["Regression_House_model"])
+app = Flask(__name__, static_url_path='/static', static_folder='static', template_folder='Templates')
 
 
-# Load Cifar-10 CNN model
+# Google Drive File IDs (Replace with your actual file IDs)
+GDRIVE_IDS = {
+    "SVM_Iris_model": "1GF3Ried3YdNBmNI7Ry-GCRgCr7sEokfA",
+    "KNN_Iris_model": "18hsEbOutisA25ht3B1i8VU5Lez_wxwY8",
+    "KNearestCentroid_Iris_model": "1nlqU7JNlsCbV4hnMGUAh7YaVWCeg4SNl",
+    "KMeans_Iris_model": "1h_z4xvavJ73_FQugBeJwZfu5T42eGUoB",
+    "KMeans_breast_cancer_model": "1yjWkQ1QLdzmNXF4GZ7KS_kziGHmsttsQ",
+    "scaler": "1DK_iId3gl8MhgA0Pw0re-tCoFhAAOIry",
+    "Regression_Iris_model": "1VokC-aVW8o4zA_3a6NLRTKsF4Rpq9r6J",
+    "Regression_House_model": "1K0EtqmjLnRSJrsTsupsH-Tf6cFmHjkeU",
+    "Cifar_model_filename": "1jmO3pah-IfGqH_kzySgSLVWpOXy4SYTu",
+    "Mnist_model": "1hOyDxX5vglHOYWhNItk4I4cy9on2UJ_4",
+    "Activity_Recognize": "122RG_xW7_h9e0lkwkBZQpgFtgSWqChHZ",
+}
+
+# Directory to store downloaded models
+MODEL_DIR = "models"
+os.makedirs(MODEL_DIR, exist_ok=True)
+
+def download_model(file_id, output_path):
+    """Download a model from Google Drive given its file ID."""
+    if not os.path.exists(output_path):  # Avoid re-downloading if already exists
+        url = f"https://drive.google.com/uc?id={file_id}"
+        gdown.download(url, output_path, quiet=False)
+
+# # Download all models
+# for model_name, file_id in GDRIVE_IDS.items():
+#     if file_id != "YOUR_FILE_ID_HERE":  # Skip if file ID is not set
+#         file_ext = ".pth" if model_name in ["Cifar_model_filename", "Mnist_model"] else ".pkl"
+#         download_model(file_id, f"{MODEL_DIR}/{model_name}{file_ext}")
+
+# Load Pickle models
+SVM_Iris_model = joblib.load(f"{MODEL_DIR}/SVM_Iris_model.pkl")
+KNN_Iris_model = joblib.load(f"{MODEL_DIR}/KNN_Iris_model.pkl")
+KNearestCentroid_Iris_model = joblib.load(f"{MODEL_DIR}/KNearestCentroid_Iris_model.pkl")
+KMeans_Iris_model = joblib.load(f"{MODEL_DIR}/KMeans_Iris_model.pkl")
+KMeans_breast_cancer_model = joblib.load(f"{MODEL_DIR}/KMeans_breast_cancer_model.pkl")
+scaler = joblib.load(f"{MODEL_DIR}/scaler.pkl")
+Regression_Iris_model = joblib.load(f"{MODEL_DIR}/Regression_Iris_model.pkl")
+Regression_House_model = joblib.load(f"{MODEL_DIR}/Regression_House_model.pkl")
+
+# Load MNIST Model
+mnist_model_path = f"{MODEL_DIR}/Mnist_model.pth"
+
+
+# Load CIFAR-10 Model
 cifar10_model = Net()
-cifar10_model.load_state_dict(torch.load(selected_paths["Cifar_model_filename"]))
+cifar10_model.load_state_dict(torch.load(f"{MODEL_DIR}/Cifar_model_filename.pth", map_location=torch.device("cpu")))
 cifar10_model.eval()  # Set the model to evaluation mode
-class_names = [
-    'airplane', 'automobile', 'bird', 'cat', 'deer',
-    'dog', 'frog', 'horse', 'ship', 'truck'
-]
 
-from keras.models import load_model
-activity_model = load_model(selected_paths["Activity_Recognize"])
+class PredictMnist():
+    def __init__(self):
+        device = torch.device("cpu")
+        self.model = Model().to(device)
+        self.model.load_state_dict(torch.load(mnist_model_path, map_location=device))
+        self.transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
 
+    def _centering_img(self, img):
+        w, h = img.size[:2]
+        left, top, right, bottom = w, h, -1, -1
+        imgpix = img.getdata()
+
+        for y in range(h):
+            offset_y = y * w
+            for x in range(w):
+                if imgpix[offset_y + x] > 0:
+                    left = min(left, x)
+                    top = min(top, y)
+                    right = max(right, x)
+                    bottom = max(bottom, y)
+
+        shift_x = (left + (right - left) // 2) - w // 2
+        shift_y = (top + (bottom - top) // 2) - h // 2
+        return ImageChops.offset(img, -shift_x, -shift_y)
+
+    def __call__(self, img):
+        img = ImageOps.invert(img)  # MNIST image is inverted
+        img = self._centering_img(img)
+        img = img.resize((28, 28), Image.BICUBIC)  # Resize to 28x28
+        tensor = self.transform(img)
+        tensor = tensor.unsqueeze_(0)  # 1,1,28,28
+
+        self.model.eval()
+        with torch.no_grad():
+            preds = self.model(tensor)
+            preds = preds.detach().numpy()[0]
+
+        return preds
+
+# Initialize MNIST Model
+mnist_predictor = PredictMnist()
+# Load Activity Recognition Model (if needed)
+# download_model(GDRIVE_IDS["Activity_Recognize"], f"{MODEL_DIR}/ActivityRecognition.h5")
+# activity_model = load_model(f"{MODEL_DIR}/ActivityRecognition.h5")
 
 
 # Englist_To_German_model = joblib.load(selected_paths["Englist_To_German_model"])
@@ -88,8 +138,6 @@ activity_model = load_model(selected_paths["Activity_Recognize"])
 
 # Translator.load_state_dict(checkpoint['model_state_dict'])
 # Translator.eval()
-
-
 
 
 @app.route('/')
@@ -348,7 +396,12 @@ def predict():
         uploaded_image.save(temp_image_path)
         predicted_class = predict_image(temp_image_path)
         return render_template('ComputerVision_CIFAR10.html', prediction_result=predicted_class)
-    
+
+
+class_names = [
+    'airplane', 'automobile', 'bird', 'cat', 'deer',
+    'dog', 'frog', 'horse', 'ship', 'truck'
+] 
 
 def predict_image(image_path):
     # Preprocess the input image
@@ -541,9 +594,8 @@ def FromTextToImage():
 
 
 if __name__ == '__main__':
-    import os
-    assert os.path.exists(SAVE_MODEL_PATH), "no saved model"
-    predict = Predict()
+    assert os.path.exists(mnist_model_path), "MNIST model not found"
+    assert os.path.exists(f"{MODEL_DIR}/Cifar_model_filename.pth"), "CIFAR-10 model not found"
     app.run(debug=True)
 
 

@@ -2,7 +2,10 @@ pip
 flask
 numpy
 pandas
-cv2
+cv
 torch
 torchvision
 watchdog
+nltk
+joblib
+keras-models

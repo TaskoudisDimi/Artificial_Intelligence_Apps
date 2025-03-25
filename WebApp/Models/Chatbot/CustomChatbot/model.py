@@ -9,7 +9,7 @@ from nltk.stem.porter import PorterStemmer
 
 
 def load_paths(tag):
-    with open('C:/Users/chris/Desktop/Dimitris/Tutorials/AI/Computational-Intelligence-and-Statistical-Learning/WebApp/Paths.json', 'r') as file:
+    with open('/media/dimitristaskoudis/HardDisk1/Codes/Artificial_Intelligence_Apps/WebApp/Paths.json', 'r') as file:
         config  = json.load(file)
 
     if tag in config["Paths"]:
@@ -18,7 +18,7 @@ def load_paths(tag):
     else:
         raise ValueError(f"Tag '{tag}' not found in the configuration file.")
     
-selected_tag = "Office"  # Change this tag based on your environment
+selected_tag = "Home"  # Change this tag based on your environment
 selected_paths = load_paths(selected_tag)
 
 with open(f'{selected_paths["intents"]}', 'r') as json_data:
