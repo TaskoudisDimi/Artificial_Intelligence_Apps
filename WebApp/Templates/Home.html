@@ -7,29 +7,41 @@
     <title>Home</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
 </head>
 <body>
-
-    <h2 class="title text-center">These are some examples of AI models</h2>
-
     <div class="container">
+        <h2 class="title text-center">Examples of AI Models</h2>
+
         <div class="btn-container">
-            <form action="/Classification" method="get"><button type="submit" class="btn btn-primary">Classification</button></form>
-            <form action="/Clustering" method="get"><button type="submit" class="btn btn-primary">Clustering</button></form>
-            <form action="/Regression" method="get"><button type="submit" class="btn btn-primary">Regression</button></form>
-            <form action="/ComputerVision" method="get"><button type="submit" class="btn btn-primary">Computer Vision</button></form>
-            <form action="/LanguageTechnology" method="get"><button type="submit" class="btn btn-primary">Language Translation</button></form>
-            <form action="/ReinforcementLearning" method="get"><button type="submit" class="btn btn-primary">Reinforcement Learning - Game</button></form>
-            <form action="/Chatbot" method="get"><button type="submit" class="btn btn-primary">Chat Bot</button></form>
-            <form action="/FakeImage" method="get"><button type="submit" class="btn btn-primary">Fake Image</button></form>
+            <form action="/Classification" method="get">
+                <button type="submit" class="btn btn-primary">Classification</button>
+            </form>
+            <form action="/Clustering" method="get">
+                <button type="submit" class="btn btn-primary">Clustering</button>
+            </form>
+            <form action="/Regression" method="get">
+                <button type="submit" class="btn btn-primary">Regression</button>
+            </form>
+            <form action="/ComputerVision" method="get">
+                <button type="submit" class="btn btn-primary">Computer Vision</button>
+            </form>
+            <form action="/LanguageTechnology" method="get">
+                <button type="submit" class="btn btn-primary">Language Translation</button>
+            </form>
+            <form action="/ReinforcementLearning" method="get">
+                <button type="submit" class="btn btn-primary">Reinforcement Learning - Game</button>
+            </form>
+            <form action="/Chatbot" method="get">
+                <button type="submit" class="btn btn-primary">Chat Bot</button>
+            </form>
+            <form action="/FakeImage" method="get">
+                <button type="submit" class="btn btn-primary">Fake Image</button>
+            </form>
         </div>
     </div>
 
     <!-- Add Bootstrap and jQuery JS links -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-   
-
 </body>
 </html>
