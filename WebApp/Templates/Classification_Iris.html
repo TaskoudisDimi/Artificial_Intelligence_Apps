@@ -3,40 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Set Flower Features</title>
+    <title>Iris</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
-    <div class="container">
-        <h3 class="title text-center">Set the Features of a Flower</h3>
+    <h3 class="title text-center">Set the features of a flower</h3>
+    <div class="container text-center">
         <form action="/ClassificationIris" method="POST">
-            <div class="form-group">
-                <label>Sepal Length</label>
-                <input type="text" name="SepalLength" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Sepal Width</label>
-                <input type="text" name="SepalWidth" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Petal Length</label>
-                <input type="text" name="PetalLength" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Petal Width</label>
-                <input type="text" name="PetalWidth" class="form-control">
-            </div>
+            <label>Sepal Length</label>
+            <input type="text" name="SepalLength"><br>
+            <label>Sepal Width</label>
+            <input type="text" name="SepalWidth"><br>
+            <label>Petal Length</label>
+            <input type="text" name="PetalLength"><br>
+            <label>Petal Width</label>
+            <input type="text" name="PetalWidth"><br>
 
             <button type="submit" class="btn btn-primary" name="SVM">SVM</button>
             <button type="submit" class="btn btn-primary" name="KNN">KNN</button>
             <button type="submit" class="btn btn-primary" name="KNearestCentroid">K-Nearest-Centroid</button>
+            
         </form>
-        <div class="btn-group">
-            <form action="/" method="get"><button type="submit" class="btn btn-secondary">Home</button></form>
-            <form action="/Classification" method="get"><button type="submit" class="btn btn-secondary">Back to Classification</button></form>
-        </div>
+        <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
+        <form action="/Classification" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
     </div>
 
     {% if message %}
@@ -44,13 +34,16 @@
     {% endif %}
     
     {% if result %}
-        <h4 class="text-center">The Predicted Class is: {{ result }}</h4>
+        <h4 class="text-center">The predicted class is: {{ result }}</h4>
     {% endif %}
 
-    <div class="title text-center">These are some examples of <b>Classification</b> Models</div>
+    <div class="title text-center">These are some examples of <b>Classification</b> models</div>
 
+  
     <!-- Add Bootstrap and jQuery JS links -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   
+
 </body>
 </html>

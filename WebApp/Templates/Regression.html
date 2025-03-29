@@ -8,16 +8,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
-    
-    <div class="container">
+    <div class="title">
         <h2 class="title text-center">These are some examples of <b>Clustering</b> models</h2>
+    </div>
+
+    <div class="container">
         <div class="btn-container">
-            <div class="btn-group">
-                <form action="/Regression_iris" method="get"><button type="submit" class="btn btn-primary">Iris</button></form>
-                <form action="/Regression_house" method="get"><button type="submit" class="btn btn-primary">Values of Houses</button></form>
-                <form action="/" method="get"><button type="submit" class="btn btn-secondary">Home</button></form>
-            </div>
+            <form action="/Regression_iris" method="get"><button type="submit" class="btn btn-primary">Iris</button></form>
+            <form action="/Regression_house" method="get"><button type="submit" class="btn btn-primary">Values of Houses</button></form>
+            <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
         </div>
     </div>
     

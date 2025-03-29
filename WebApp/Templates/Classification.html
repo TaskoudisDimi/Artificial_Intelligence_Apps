@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classification Models</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-   
+    <div class="title">
+        <h2 class="title text-center">These are some examples of <b>Classification</b> models</h2>
+    </div>
 
     <div class="container">
-        <h2 class="title text-center">Examples of <b>Classification</b> Models</h2>
         <div class="btn-container">
-            <form action="/Classification_Iris" method="get"><button type="submit" class="btn btn-primary">Iris Classification</button></form>
-            <form action="/" method="get"><button type="submit" class="btn btn-secondary">Back to Home</button></form>
+            <form action="/Classification_Iris" method="get"><button type="submit" class="btn btn-primary">Iris</button></form>
+            <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
         </div>
     </div>
     
     <!-- Add Bootstrap and jQuery JS links -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   
+
 </body>
 </html>

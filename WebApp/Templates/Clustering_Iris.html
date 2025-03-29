@@ -8,25 +8,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    
-    <div class="container">
-        <h1 class="title text-center">KMeans Clustering</h1>
-        <form id="user-input-form" method="POST">
-            <div class="form-group">
-                <label for="sepal_length">Sepal Length:</label>
-                <input type="number" id="sepal_length" name="sepal_length" step="0.1" required>
-            </div>
-            <div class="form-group">
-                <label for="sepal_width">Sepal Width:</label>
-                <input type="number" id="sepal_width" name="sepal_width" step="0.1" required>
-            </div>
-            <button class="btn btn-primary" type="submit">Predict Cluster</button>
-        </form>
-        <div class="btn-group">
-            <form action="/" method="get"><button type="submit" class="btn btn-secondary">Home</button></form>
-            <form action="/Clustering" method="get"><button type="submit" class="btn btn-secondary">Back</button></form>
-        </div>
-    </div>
+    <h1>KMeans Clustering</h1>
+    <form id="user-input-form" method="POST">
+        <label for="sepal_length">Sepal Length:</label>
+        <input type="number" id="sepal_length" name="sepal_length" step="0.1" required>
+        <br>
+        <label for="sepal_width">Sepal Width:</label>
+        <input type="number" id="sepal_width" name="sepal_width" step="0.1" required>
+        <br>
+        <button class="btn btn-primary" type="submit">Predict Cluster</button>
+    </form>
+    <p id="prediction-result"></p>
+
+    <form action="/" method="get"><button type="submit" class="btn btn-primary">Home</button></form>
+    <form action="/Clustering" method="get"><button type="submit" class="btn btn-primary">Back</button></form>
 
     {% if message %}
         <p>{{ message }}</p>
