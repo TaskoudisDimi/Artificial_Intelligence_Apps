@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Technology</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Language Technology</h1>
+        <form action="{{ url_for('translate') }}" method="POST">
+            <label for="english_text">Enter English Text:</label>
+            <textarea id="english_text" name="english_text" rows="4" required></textarea>
+            <button type="submit">Translate</button>
+        </form>
+        {% if translated_text %}
+            <h2>Translated Text:</h2>
+            <p>{{ translated_text }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

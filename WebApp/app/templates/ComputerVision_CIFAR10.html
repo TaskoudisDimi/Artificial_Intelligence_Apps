@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIFAR-10 Image Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>CIFAR-10 Image Classification</h1>
+        <form action="/ComputerVision_CIFAR_predict" method="post" enctype="multipart/form-data">
+            <label for="image">Upload an image:</label>
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Classify</button>
+        </form>
+        {% if prediction_result %}
+            <h2>Prediction Result: {{ prediction_result }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>

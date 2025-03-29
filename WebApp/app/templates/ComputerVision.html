@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Vision</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Computer Vision</h1>
+        <p>Upload an image for classification using MNIST or CIFAR-10 models.</p>
+        
+        <form action="{{ url_for('predict_image') }}" method="post" enctype="multipart/form-data">
+            <label for="image">Choose an image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_result %}
+            <h2>Prediction Result: {{ prediction_result }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>

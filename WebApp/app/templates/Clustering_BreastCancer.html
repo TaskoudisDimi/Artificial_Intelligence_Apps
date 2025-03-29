@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clustering Breast Cancer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Clustering Breast Cancer</h1>
+        <form action="{{ url_for('Clustering_BreastCancer_Predict') }}" method="POST">
+            <label for="mean_radius">Mean Radius:</label>
+            <input type="text" id="mean_radius" name="mean_radius" required>
+
+            <label for="mean_texture">Mean Texture:</label>
+            <input type="text" id="mean_texture" name="mean_texture" required>
+
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if result %}
+            <h2>Predicted Cluster: {{ result }}</h2>
+        {% endif %}
+        
+        {% if error %}
+            <h2 style="color: red;">{{ error }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>

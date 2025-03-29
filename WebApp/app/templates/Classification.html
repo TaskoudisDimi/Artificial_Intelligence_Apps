@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Classification</h1>
+        <form action="{{ url_for('ClassificationIris') }}" method="post">
+            <label for="SepalLength">Sepal Length:</label>
+            <input type="text" id="SepalLength" name="SepalLength" required>
+
+            <label for="SepalWidth">Sepal Width:</label>
+            <input type="text" id="SepalWidth" name="SepalWidth" required>
+
+            <label for="PetalLength">Petal Length:</label>
+            <input type="text" id="PetalLength" name="PetalLength" required>
+
+            <label for="PetalWidth">Petal Width:</label>
+            <input type="text" id="PetalWidth" name="PetalWidth" required>
+
+            <button type="submit">Classify</button>
+        </form>
+
+        {% if result %}
+            <h2>Prediction Result: {{ result }}</h2>
+        {% endif %}
+        {% if message %}
+            <h2 style="color: red;">{{ message }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Activity Recognition</h1>
+        <form action="{{ url_for('PredictActivityRecognition') }}" method="post" enctype="multipart/form-data">
+            <label for="video">Upload Video:</label>
+            <input type="file" name="video" accept="video/*" required>
+            <button type="submit">Predict Activity</button>
+        </form>
+        {% if prediction_result %}
+            <h2>Prediction Result: {{ prediction_result }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>

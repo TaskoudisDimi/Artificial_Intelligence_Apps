@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Regression</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>House Price Regression</h1>
+        <form method="POST" action="{{ url_for('Regression_house') }}">
+            <label for="sepal_length">Sepal Length:</label>
+            <input type="text" id="sepal_length" name="sepal_length" required>
+
+            <label for="sepal_width">Sepal Width:</label>
+            <input type="text" id="sepal_width" name="sepal_width" required>
+
+            <label for="petal_length">Petal Length:</label>
+            <input type="text" id="petal_length" name="petal_length" required>
+
+            <label for="petal_width">Petal Width:</label>
+            <input type="text" id="petal_width" name="petal_width" required>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if predicted_value %}
+            <h2>Predicted House Price: {{ predicted_value }}</h2>
+        {% elif error %}
+            <h2>Error: {{ error }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>

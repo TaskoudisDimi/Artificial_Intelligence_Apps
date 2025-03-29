@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clustering Iris</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Iris Clustering</h1>
+        <form action="{{ url_for('Clustering_Iris_Predict') }}" method="POST">
+            <label for="sepal_length">Sepal Length:</label>
+            <input type="text" id="sepal_length" name="sepal_length" required>
+
+            <label for="sepal_width">Sepal Width:</label>
+            <input type="text" id="sepal_width" name="sepal_width" required>
+
+            <button type="submit">Predict Cluster</button>
+        </form>
+
+        {% if result %}
+            <h2>Predicted Cluster: {{ result }}</h2>
+        {% endif %}
+
+        {% if message %}
+            <p class="error">{{ message }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
