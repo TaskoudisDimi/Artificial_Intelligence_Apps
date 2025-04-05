@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify
-from models.Translate.Transformer import translate  # Assuming you have a translate function in your Transformer model
+from Old_Models.Translate.Transformer import translate  # Assuming you have a translate function in your Transformer model
 
 language_technology_bp = Blueprint('language_technology', __name__)
 

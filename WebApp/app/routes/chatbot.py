@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify
-from models.Chatbot.CustomChatbot.model import response
+from Old_Models.Chatbot.CustomChatbot.model import response
 
 chatbot_bp = Blueprint('chatbot', __name__)
 

@@ -2,7 +2,7 @@ from flask import current_app
 import torch
 from torchvision import transforms
 from PIL import Image, ImageChops, ImageOps
-from models.Mnist.model import Model
+from Old_Models.Mnist.model import Model
 
 class PredictMnist:
     def __init__(self):

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home - AI App{% endblock %}</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="{{ url_for('routes.home') }}">AI App</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('routes.home') }}" class="{% if request.path == url_for('routes.home') %}active{% endif %}">Home</a></li>
+                <li><a href="{{ url_for('routes.about') }}" class="{% if request.path == url_for('routes.about') %}active{% endif %}">About</a></li>
+                <li><a href="{{ url_for('routes.contact') }}" class="{% if request.path == url_for('routes.contact') %}active{% endif %}">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content-container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer">
+            <p>&copy; 2025 AI App. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

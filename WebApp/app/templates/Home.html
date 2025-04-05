@@ -1,34 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Flask AI App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <header>
-        <h1>Welcome to the Flask AI App</h1>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('Classification') }}">Classification</a></li>
-                <li><a href="{{ url_for('Clustering') }}">Clustering</a></li>
-                <li><a href="{{ url_for('Regression') }}">Regression</a></li>
-                <li><a href="{{ url_for('ComputerVision') }}">Computer Vision</a></li>
-                <li><a href="{{ url_for('Activity_Recognition') }}">Activity Recognition</a></li>
-                <li><a href="{{ url_for('LanguageTechnology') }}">Language Technology</a></li>
-                <li><a href="{{ url_for('Chat_bot') }}">Chatbot</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h2>About This App</h2>
-            <p>This application provides various AI functionalities including classification, clustering, regression, computer vision, activity recognition, language translation, and chatbot interactions.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Flask AI App. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}AI App{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <h3>Welcome to AI App</h3>
+        <p>Experience the power of AI with our innovative tools.</p>
+        <a href="{{ url_for('routes.about') }}" class="cta-button">Learn More</a>
+    </section>
+
+    <section class="features">
+        <h2>Explore Our AI Features</h2>
+        <p>Our app offers diverse AI functionalities to assist you in classification, clustering, regression, and more.</p>
+
+        <div class="buttons-container">
+            <button onclick="window.location.href='{{ url_for('routes.classification') }}'">Start Classification</button>
+            <button onclick="window.location.href='{{ url_for('routes.clustering') }}'">Start Clustering</button>
+            <button onclick="window.location.href='{{ url_for('routes.regression') }}'">Start Regression</button>
+            <button onclick="window.location.href='{{ url_for('routes.computer_vision') }}'">Start Computer Vision</button>
+            <button onclick="window.location.href='{{ url_for('routes.activity_recognition') }}'">Start Activity Recognition</button>
+            <button onclick="window.location.href='{{ url_for('routes.language_technology') }}'">Start Language Technology</button>
+            <button onclick="window.location.href='{{ url_for('routes.chatbot') }}'">Start Chatbot</button>
+        </div>
+    </section>
+{% endblock %}

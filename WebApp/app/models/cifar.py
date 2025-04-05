@@ -1,7 +1,7 @@
 from pathlib import Path
 import torch
 from torchvision import transforms
-from Models.Cifar.Net import Net
+from Old_Models.Cifar.Net import Net
 
 class CifarModel:
     def __init__(self, model_path):
@@ -21,5 +21,5 @@ class CifarModel:
         return output.argmax(dim=1).item()  # Return the predicted class index
 
 # Load the CIFAR-10 model
-model_path = Path(__file__).resolve().parent.parent / 'models' / 'Cifar' / 'Cifar_model_filename.pth'
+model_path = Path(__file__).resolve().parent.parent / 'downloaded_models' / 'Cifar' / 'Cifar_model_filename.pth'
 cifar_model = CifarModel(model_path)
