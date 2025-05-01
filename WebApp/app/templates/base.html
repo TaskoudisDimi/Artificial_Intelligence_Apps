@@ -6,11 +6,10 @@
     <title>{% block title %}Home - AI App{% endblock %}</title>
     
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
-    
 </head>
 <body>
-
     <!-- Navbar -->
     <header>
         <nav class="navbar">
@@ -33,9 +32,16 @@
     <!-- Footer -->
     <footer>
         <div class="footer">
-            <p>&copy; 2025 AI App. All rights reserved.</p>
+            <p>© 2025 AI App. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
         </div>
     </footer>
 
+    <!-- Font Awesome for social icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,37 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regression Prediction</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Regression Prediction</h1>
-        <form action="{{ url_for('Regression_iris') }}" method="post">
-            <label for="sepal_length">Sepal Length:</label>
-            <input type="text" id="sepal_length" name="sepal_length" required>
+{% extends "base.html" %}
 
-            <label for="sepal_width">Sepal Width:</label>
-            <input type="text" id="sepal_width" name="sepal_width" required>
+{% block title %}Regression - AI App{% endblock %}
 
-            <label for="petal_length">Petal Length:</label>
-            <input type="text" id="petal_length" name="petal_length" required>
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Regression Tools</h1>
+            <p>Select a regression task to explore our AI-powered solutions.</p>
+        </div>
+    </section>
 
-            <label for="petal_width">Petal Width:</label>
-            <input type="text" id="petal_width" name="petal_width" required>
-
-            <input type="submit" value="Predict">
-        </form>
-
-        {% if predicted_value is not none %}
-            <h2>Predicted Value: {{ predicted_value }}</h2>
-        {% endif %}
-
-        {% if error %}
-            <h2 style="color: red;">{{ error }}</h2>
-        {% endif %}
-    </div>
-</body>
-</html>
+    <section class="features">
+        <h2>Available Tasks</h2>
+        <p>Choose a regression task to get started.</p>
+        <div class="buttons-container">
+            <a href="{{ url_for('routes.RegressionIris') }}" class="feature-card">Regression Iris</a>
+            <a href="{{ url_for('routes.RegressionHouse') }}" class="feature-card">House Price Regression</a>
+        </div>
+    </section>
+{% endblock %}

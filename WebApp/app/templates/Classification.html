@@ -3,12 +3,18 @@
 {% block title %}Classification - AI App{% endblock %}
 
 {% block content %}
-    <section class="container">
-        <h1>Classification</h1>
-        <p>Select the classification task you want to perform:</p>
-        
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Classification Tools</h1>
+            <p>Select a classification task to explore our AI-powered solutions.</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Available Tasks</h2>
+        <p>Choose a classification task to get started.</p>
         <div class="buttons-container">
-            <button onclick="window.location.href='{{ url_for('routes.classificationIris')}}'">Iris Classification</button>
+            <a href="{{ url_for('routes.classificationIris') }}" class="feature-card">Iris Classification</a>
         </div>
     </section>
 {% endblock %}

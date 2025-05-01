@@ -1,35 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>House Price Regression</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>House Price Regression</h1>
-        <form method="POST" action="{{ url_for('Regression_house') }}">
-            <label for="sepal_length">Sepal Length:</label>
-            <input type="text" id="sepal_length" name="sepal_length" required>
+{% extends "base.html" %}
 
-            <label for="sepal_width">Sepal Width:</label>
-            <input type="text" id="sepal_width" name="sepal_width" required>
+{% block title %}House Price Regression - AI App{% endblock %}
 
-            <label for="petal_length">Petal Length:</label>
-            <input type="text" id="petal_length" name="petal_length" required>
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>House Price Regression</h1>
+            <p>Enter the house details below to predict its price.</p>
+        </div>
+    </section>
 
-            <label for="petal_width">Petal Width:</label>
-            <input type="text" id="petal_width" name="petal_width" required>
-
-            <button type="submit">Predict</button>
-        </form>
+    <section class="features">
+        <h2>Predict House Price</h2>
+        <p>Provide the house measurements to predict the price.</p>
+        <div class="form-container">
+            <form action="{{ url_for('routes.RegressionHouse') }}" method="post">
+                <div class="form-group">
+                    <label for="square_footage">Square Footage</label>
+                    <input type="text" id="square_footage" name="square_footage" placeholder="e.g., 2000" required>
+                </div>
+                <div class="form-group">
+                    <label for="bedrooms">Number of Bedrooms</label>
+                    <input type="text" id="bedrooms" name="bedrooms" placeholder="e.g., 3" required>
+                </div>
+                <div class="form-group">
+                    <label for="bathrooms">Number of Bathrooms</label>
+                    <input type="text" id="bathrooms" name="bathrooms" placeholder="e.g., 2" required>
+                </div>
+                <div class="form-group">
+                    <label for="year_built">Year Built</label>
+                    <input type="text" id="year_built" name="year_built" placeholder="e.g., 1990" required>
+                </div>
+                <div class="buttons-container">
+                    <button type="submit" class="cta-button">Predict</button>
+                </div>
+            </form>
+        </div>
 
         {% if predicted_value %}
-            <h2>Predicted House Price: {{ predicted_value }}</h2>
-        {% elif error %}
-            <h2>Error: {{ error }}</h2>
+            <div class="result-container">
+                <h2>Predicted House Price: {{ predicted_value }}</h2>
+            </div>
         {% endif %}
-    </div>
-</body>
-</html>
+
+        {% if error %}
+            <div class="message-container">
+                <h3>{{ error }}</h3>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

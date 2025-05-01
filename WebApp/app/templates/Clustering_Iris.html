@@ -1,31 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clustering Iris</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Iris Clustering</h1>
-        <form action="{{ url_for('Clustering_Iris_Predict') }}" method="POST">
-            <label for="sepal_length">Sepal Length:</label>
-            <input type="text" id="sepal_length" name="sepal_length" required>
+{% extends "base.html" %}
 
-            <label for="sepal_width">Sepal Width:</label>
-            <input type="text" id="sepal_width" name="sepal_width" required>
+{% block title %}Iris Clustering - AI App{% endblock %}
 
-            <button type="submit">Predict Cluster</button>
-        </form>
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Iris Clustering</h1>
+            <p>Enter the measurements below to predict the cluster for an Iris flower.</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Cluster Iris</h2>
+        <p>Provide the sepal measurements to predict the cluster.</p>
+        <div class="form-container">
+            <form action="{{ url_for('clustering.cluster_iris') }}" method="post">
+                <div class="form-group">
+                    <label for="sepal_length">Sepal Length (cm)</label>
+                    <input type="text" id="sepal_length" name="sepal_length" placeholder="e.g., 5.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="sepal_width">Sepal Width (cm)</label>
+                    <input type="text" id="sepal_width" name="sepal_width" placeholder="e.g., 3.5" required>
+                </div>
+                <div class="buttons-container">
+                    <button type="submit" class="cta-button">Predict Cluster</button>
+                </div>
+            </form>
+        </div>
 
         {% if result %}
-            <h2>Predicted Cluster: {{ result }}</h2>
+            <div class="result-container">
+                <h2>Predicted Cluster: {{ result }}</h2>
+            </div>
         {% endif %}
 
         {% if message %}
-            <p class="error">{{ message }}</p>
+            <div class="message-container">
+                <h3>{{ message }}</h3>
+            </div>
         {% endif %}
-    </div>
-</body>
-</html>
+    </section>
+{% endblock %}

@@ -9,8 +9,8 @@ regression_bp = Blueprint('regression', __name__)
 def regression():
     return render_template('Regression.html')
 
-@regression_bp.route('/Regression_iris', methods=['POST'])
-def regression_iris():
+@regression_bp.route('/RegressionIris', methods=['POST'])
+def regression_Iris():
     if request.method == 'POST':
         try:
             sepal_length = float(request.form.get('sepal_length'))
@@ -28,8 +28,8 @@ def regression_iris():
 
     return render_template('Regression_Iris.html', predicted_value=None)
 
-@regression_bp.route('/Regression_house', methods=['POST'])
-def regression_house():
+@regression_bp.route('/RegressionHouse', methods=['POST'])
+def RegressionHouse():
     try:
         inputs = [float(x) for x in request.form.values()]
         prediction = RegressionHouseModel.predict([inputs])[0]

@@ -1,22 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CIFAR-10 Image Classification</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>CIFAR-10 Image Classification</h1>
-        <form action="/ComputerVision_CIFAR_predict" method="post" enctype="multipart/form-data">
-            <label for="image">Upload an image:</label>
-            <input type="file" name="image" accept="image/*" required>
-            <button type="submit">Classify</button>
-        </form>
+{% extends "base.html" %}
+
+{% block title %}CIFAR-10 Image Classification - AI App{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>CIFAR-10 Image Classification</h1>
+            <p>Upload an image to classify it using the CIFAR-10 model.</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Classify Image</h2>
+        <p>Provide an image for classification.</p>
+        <div class="form-container">
+            <form action="{{ url_for('computer_vision.predict_cifar10') }}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="image">Upload Image</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+                <div class="buttons-container">
+                    <button type="submit" class="cta-button">Classify</button>
+                </div>
+            </form>
+        </div>
+
         {% if prediction_result %}
-            <h2>Prediction Result: {{ prediction_result }}</h2>
+            <div class="result-container">
+                <h2>Prediction Result: {{ prediction_result }}</h2>
+            </div>
         {% endif %}
-    </div>
-</body>
-</html>
+    </section>
+{% endblock %}

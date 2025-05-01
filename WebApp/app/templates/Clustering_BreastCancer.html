@@ -1,31 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clustering Breast Cancer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Clustering Breast Cancer</h1>
-        <form action="{{ url_for('Clustering_BreastCancer_Predict') }}" method="POST">
-            <label for="mean_radius">Mean Radius:</label>
-            <input type="text" id="mean_radius" name="mean_radius" required>
+{% extends "base.html" %}
 
-            <label for="mean_texture">Mean Texture:</label>
-            <input type="text" id="mean_texture" name="mean_texture" required>
+{% block title %}Breast Cancer Clustering - AI App{% endblock %}
 
-            <input type="submit" value="Predict">
-        </form>
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Breast Cancer Clustering</h1>
+            <p>Enter the measurements below to predict the cluster for breast cancer data.</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Cluster Breast Cancer</h2>
+        <p>Provide the mean radius and texture to predict the cluster.</p>
+        <div class="form-container">
+            <form action="{{ url_for('routes.clusteringBreastCancer') }}" method="post">
+                <div class="form-group">
+                    <label for="mean_radius">Mean Radius</label>
+                    <input type="text" id="mean_radius" name="mean_radius" placeholder="e.g., 17.99" required>
+                </div>
+                <div class="form-group">
+                    <label for="mean_texture">Mean Texture</label>
+                    <input type="text" id="mean_texture" name="mean_texture" placeholder="e.g., 10.38" required>
+                </div>
+                <div class="buttons-container">
+                    <button type="submit" class="cta-button">Predict Cluster</button>
+                </div>
+            </form>
+        </div>
 
         {% if result %}
-            <h2>Predicted Cluster: {{ result }}</h2>
+            <div class="result-container">
+                <h2>Predicted Cluster: {{ result }}</h2>
+            </div>
         {% endif %}
-        
+
         {% if error %}
-            <h2 style="color: red;">{{ error }}</h2>
+            <div class="message-container">
+                <h3>{{ error }}</h3>
+            </div>
         {% endif %}
-    </div>
-</body>
-</html>
+    </section>
+{% endblock %}

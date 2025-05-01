@@ -3,33 +3,52 @@
 {% block title %}Iris Classification - AI App{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1>Iris Classification</h1>
-        <form action="{{ url_for('classification.classify_iris') }}" method="post">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Iris Classification</h1>
+            <p>Enter the measurements below to classify an Iris flower using our AI models.</p>
+        </div>
+    </section>
 
-            <label for="SepalLength">Sepal Length:</label>
-            <input type="text" id="SepalLength" name="SepalLength" required>
-
-            <label for="SepalWidth">Sepal Width:</label>
-            <input type="text" id="SepalWidth" name="SepalWidth" required>
-
-            <label for="PetalLength">Petal Length:</label>
-            <input type="text" id="PetalLength" name="PetalLength" required>
-
-            <label for="PetalWidth">Petal Width:</label>
-            <input type="text" id="PetalWidth" name="PetalWidth" required>
-            
-            <div class="buttons-container">
-                <button type="submit">Classify</button>
-            </div>
-        </form>
+    <section class="features">
+        <h2>Classify Iris</h2>
+        <p>Provide the sepal and petal measurements to predict the Iris species.</p>
+        <div class="form-container">
+            <form action="{{ url_for('classification.classify_iris') }}" method="post">
+                <div class="form-group">
+                    <label for="SepalLength">Sepal Length (cm)</label>
+                    <input type="text" id="SepalLength" name="SepalLength" placeholder="e.g., 5.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="SepalWidth">Sepal Width (cm)</label>
+                    <input type="text" id="SepalWidth" name="SepalWidth" placeholder="e.g., 3.5" required>
+                </div>
+                <div class="form-group">
+                    <label for="PetalLength">Petal Length (cm)</label>
+                    <input type="text" id="PetalLength" name="PetalLength" placeholder="e.g., 1.4" required>
+                </div>
+                <div class="form-group">
+                    <label for="PetalWidth">Petal Width (cm)</label>
+                    <input type="text" id="PetalWidth" name="PetalWidth" placeholder="e.g., 0.2" required>
+                </div>
+                <div class="buttons-container">
+                    <button type="submit" name="SVM" class="cta-button">Classify with SVM</button>
+                    <button type="submit" name="KNN" class="cta-button">Classify with KNN</button>
+                    <button type="submit" name="KNearestCentroid" class="cta-button">Classify with KNearestCentroid</button>
+                </div>
+            </form>
+        </div>
 
         {% if result %}
-            <h2>Prediction Result: {{ result }}</h2>
+            <div class="result-container">
+                <h2>Prediction Result: {{ result }}</h2>
+            </div>
         {% endif %}
 
         {% if message %}
-            <h3 style="color: rgb(241, 110, 110);">{{ message }}</h3>
+            <div class="message-container">
+                <h3>{{ message }}</h3>
+            </div>
         {% endif %}
-    </div>
+    </section>
 {% endblock %}

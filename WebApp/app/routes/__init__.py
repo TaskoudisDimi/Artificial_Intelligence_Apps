@@ -24,13 +24,37 @@ def clustering():
 def clusteringIris():
     return render_template('Clustering_Iris.html')
 
+@routes_bp.route('/clusteringBreastCancer')
+def clusteringBreastCancer():
+    return render_template('Clustering_BreastCancer.html')
+
 @routes_bp.route('/regression')
 def regression():
     return render_template('Regression.html')
 
+@routes_bp.route('/RegressionIris')
+def RegressionIris():
+    return render_template('Regression_Iris.html')
+
+@routes_bp.route('/regression_house')
+def RegressionHouse():
+    return render_template('Regression_House.html')
+
 @routes_bp.route('/computer_vision')
 def computer_vision():
     return render_template('ComputerVision.html')
+
+@routes_bp.route('/computer_vision_Mnist')
+def computerVisionMnist():
+    return render_template('ComputerVision_MNIST.html')
+
+@routes_bp.route('/computer_vision_Mnist_up_img')
+def computerVisionMnistUpImg():
+    return render_template('ComputerVision_MNIST_Up_image.html')
+
+@routes_bp.route('/computer_vision_Cifar')
+def computerVisionCifar():
+    return render_template('ComputerVision_CIFAR10.html')
 
 @routes_bp.route('/activity_recognition')
 def activity_recognition():

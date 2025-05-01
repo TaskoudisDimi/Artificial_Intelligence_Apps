@@ -5,6 +5,8 @@ from PIL import Image
 from torchvision import transforms
 from app.models.cifar import Net as CifarModel
 from app.models.mnist import Model as MnistModel
+from app.models.mnist import PredictMnist
+
 
 computer_vision_bp = Blueprint('computer_vision', __name__)
 

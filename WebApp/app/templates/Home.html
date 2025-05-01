@@ -4,23 +4,25 @@
 
 {% block content %}
     <section class="hero">
-        <h3>Welcome to AI App</h3>
-        <p>Experience the power of AI with our innovative tools.</p>
-        <a href="{{ url_for('routes.about') }}" class="cta-button">Learn More</a>
+        <div class="hero-content">
+            <h1>Welcome to AI App</h1>
+            <p>Unlock the future with our cutting-edge AI tools for smarter solutions.</p>
+            <a href="{{ url_for('routes.about') }}" class="cta-button">Discover More</a>
+        </div>
     </section>
 
     <section class="features">
         <h2>Explore Our AI Features</h2>
-        <p>Our app offers diverse AI functionalities to assist you in classification, clustering, regression, and more.</p>
+        <p>From classification to language technology, our AI tools empower your projects.</p>
 
         <div class="buttons-container">
-            <button onclick="window.location.href='{{ url_for('routes.classification') }}'">Start Classification</button>
-            <button onclick="window.location.href='{{ url_for('routes.clustering') }}'">Start Clustering</button>
-            <button onclick="window.location.href='{{ url_for('routes.regression') }}'">Start Regression</button>
-            <button onclick="window.location.href='{{ url_for('routes.computer_vision') }}'">Start Computer Vision</button>
-            <button onclick="window.location.href='{{ url_for('routes.activity_recognition') }}'">Start Activity Recognition</button>
-            <button onclick="window.location.href='{{ url_for('routes.language_technology') }}'">Start Language Technology</button>
-            <button onclick="window.location.href='{{ url_for('routes.chatbot') }}'">Start Chatbot</button>
+            <a href="{{ url_for('routes.classification') }}" class="feature-card">Classification</a>
+            <a href="{{ url_for('routes.clustering') }}" class="feature-card">Clustering</a>
+            <a href="{{ url_for('routes.regression') }}" class="feature-card">Regression</a>
+            <a href="{{ url_for('routes.computer_vision') }}" class="feature-card">Computer Vision</a>
+            <a href="{{ url_for('routes.activity_recognition') }}" class="feature-card">Activity Recognition</a>
+            <a href="{{ url_for('routes.language_technology') }}" class="feature-card">Language Technology</a>
+            <a href="{{ url_for('routes.chatbot') }}" class="feature-card">Chatbot</a>
         </div>
     </section>
 {% endblock %}

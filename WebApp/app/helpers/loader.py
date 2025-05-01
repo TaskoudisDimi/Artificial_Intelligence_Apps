@@ -4,18 +4,20 @@ from Old_Models.Cifar.Net import Net
 from Old_Models.Mnist.model import Model
 
 def load_models_from_cloud(config):
-    """Load all models directly from the cloud."""
-    #model_urls = config.get('MODEL_URLS', {})
-    model_urls = config.get('GDRIVE_IDS', {})  # ✅ Correct Key
+    model_urls = config.get('GDRIVE_IDS', {})
 
     models = {
         "SVM_Iris_model": load_pickle_model_from_cloud(model_urls["SVM_Iris_model"]),
         "KNN_Iris_model": load_pickle_model_from_cloud(model_urls["KNN_Iris_model"]),
+        "KNearestCentroid_Iris_model": load_pickle_model_from_cloud(model_urls["KNearestCentroid_Iris_model"]),
+        "KMeans_Iris_model": load_pickle_model_from_cloud(model_urls["KMeans_Iris_model"]),
+        "KMeans_breast_cancer_model": load_pickle_model_from_cloud(model_urls["KMeans_breast_cancer_model"]),
+        "scaler": load_pickle_model_from_cloud(model_urls["scaler"]),
         "Regression_Iris_model": load_pickle_model_from_cloud(model_urls["Regression_Iris_model"]),
         "Regression_House_model": load_pickle_model_from_cloud(model_urls["Regression_House_model"]),
         "Cifar_model": load_torch_model_from_cloud(Net, model_urls["Cifar_model_filename"]),
         "Mnist_model": load_torch_model_from_cloud(Model, model_urls["Mnist_model"]),
     }
-    print("Loaded model URLs:", model_urls)  # Check if model URLs are correct
+    print("Loaded model URLs:", model_urls)
 
     return models
