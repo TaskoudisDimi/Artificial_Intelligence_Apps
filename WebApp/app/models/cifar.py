@@ -20,6 +20,3 @@ class CifarModel:
             output = self.model(image)
         return output.argmax(dim=1).item()  # Return the predicted class index
 
-# Load the CIFAR-10 model
-model_path = Path(__file__).resolve().parent.parent / 'downloaded_models' / 'Cifar' / 'Cifar_model_filename.pth'
-cifar_model = CifarModel(model_path)

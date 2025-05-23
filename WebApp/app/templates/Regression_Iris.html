@@ -14,7 +14,7 @@
         <h2>Predict Iris Value</h2>
         <p>Provide the sepal and petal measurements to predict the value.</p>
         <div class="form-container">
-            <form action="{{ url_for('routes.RegressionIris') }}" method="post">
+            <form action="{{ url_for('regression.regression_Iris') }}" method="post">
                 <div class="form-group">
                     <label for="sepal_length">Sepal Length (cm)</label>
                     <input type="text" id="sepal_length" name="sepal_length" placeholder="e.g., 5.1" required>

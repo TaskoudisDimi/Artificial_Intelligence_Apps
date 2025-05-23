@@ -44,10 +44,6 @@ def RegressionHouse():
 def computer_vision():
     return render_template('ComputerVision.html')
 
-@routes_bp.route('/computer_vision_Mnist')
-def computerVisionMnist():
-    return render_template('ComputerVision_MNIST.html')
-
 @routes_bp.route('/computer_vision_Mnist_up_img')
 def computerVisionMnistUpImg():
     return render_template('ComputerVision_MNIST_Up_image.html')

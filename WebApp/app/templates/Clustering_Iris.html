@@ -13,7 +13,7 @@
     <section class="features">
         <h2>Cluster Iris</h2>
         <p>Provide the sepal measurements to predict the cluster.</p>
-        <div class="form-container">
+        <!-- <div class="form-container">
             <form action="{{ url_for('clustering.cluster_iris') }}" method="post">
                 <div class="form-group">
                     <label for="sepal_length">Sepal Length (cm)</label>
@@ -27,8 +27,9 @@
                     <button type="submit" class="cta-button">Predict Cluster</button>
                 </div>
             </form>
-        </div>
+        </div> -->
 
+        <p> Under Reconstruction </p>
         {% if result %}
             <div class="result-container">
                 <h2>Predicted Cluster: {{ result }}</h2>

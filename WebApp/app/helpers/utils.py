@@ -42,14 +42,38 @@ def center_image(img):
     shift_y = (top + (bottom - top) // 2) - h // 2
     return ImageChops.offset(img, -shift_x, -shift_y)
 
-def load_pickle_model_from_cloud(model_url):
-    """Load a pickle model directly from a cloud URL."""
-    response = requests.get(model_url)
-    if response.status_code == 200:
-        return joblib.load(BytesIO(response.content))
-    else:
-        raise Exception(f"Failed to load model from {model_url}. Status code: {response.status_code}")
+# def load_pickle_model_from_cloud(model_url):
+#     """Load a pickle model directly from a cloud URL."""
+#     response = requests.get(model_url)
+#     if response.status_code == 200:
+#         return joblib.load(BytesIO(response.content))
+#     else:
+#         raise Exception(f"Failed to load model from {model_url}. Status code: {response.status_code}")
 
+import gdown
+import joblib
+import os
+from pathlib import Path
+
+def load_pickle_model_from_cloud(model_url, cache_dir="downloaded_models"):
+    """Load a pickle model directly from a cloud URL using gdown."""
+    try:
+        # Ensure cache directory exists
+        os.makedirs(cache_dir, exist_ok=True)
+        
+        # Extract file ID from URL
+        file_id = model_url.split("id=")[-1]
+        output_path = os.path.join(cache_dir, f"{file_id}.pkl")
+        
+        # Download file using gdown if not already cached
+        if not os.path.exists(output_path):
+            gdown.download(id=file_id, output=output_path, quiet=False)
+        
+        # Load the pickle file
+        return joblib.load(output_path)
+    except Exception as e:
+        raise Exception(f"Failed to load model from {model_url}. Error: {str(e)}")
+    
 def load_torch_model_from_cloud(model_class, model_url, device="cpu"):
     """Load a PyTorch model directly from a cloud URL."""
     response = requests.get(model_url)

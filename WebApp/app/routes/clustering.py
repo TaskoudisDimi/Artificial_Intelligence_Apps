@@ -33,23 +33,28 @@ def cluster_iris():
 
 @clustering_bp.route('/Clustering_BreastCancer', methods=['GET', 'POST'])
 def clustering_breast_cancer_predict():
-    if request.method == 'POST':
-        try:
-            mean_radius = float(request.form.get('mean_radius'))
-            mean_texture = float(request.form.get('mean_texture'))
+    # if request.method == 'POST':
+    #     try:
+    #         mean_radius = float(request.form.get('mean_radius'))
+    #         mean_texture = float(request.form.get('mean_texture'))
 
-            user_input = np.array([[mean_radius, mean_texture]])
-            user_input = scaler.transform(user_input)
+    #         user_input = np.array([[mean_radius, mean_texture]])
+    #         user_input = scaler.transform(user_input)
 
-            predicted_cluster = KMeans_breast_cancer_model.predict(user_input)
-            if predicted_cluster is None:
-                return render_template('Clustering_BreastCancer.html')
-            else:
-                result = int(predicted_cluster[0])
-                result = "Setosa" if result == 0 else "Versicolor" if result == 1 else "Virginica"
-                return render_template('Clustering_BreastCancer.html', result=result)
+    #         models = current_app.models
+    #         if not models:
+    #             message = "No models loaded. Please check the server configuration."
+    #             return render_template('Clustering_BreastCancer.html', message=message)
+           
+    #         predicted_cluster = KMeans_breast_cancer_model.predict(user_input)
+    #         if predicted_cluster is None:
+    #             return render_template('Clustering_BreastCancer.html')
+    #         else:
+    #             result = int(predicted_cluster[0])
+    #             result = "Setosa" if result == 0 else "Versicolor" if result == 1 else "Virginica"
+    #             return render_template('Clustering_BreastCancer.html', result=result)
 
-        except (ValueError, TypeError):
-            return jsonify({'error': 'Invalid input. Please enter valid numbers.'})
+    #     except (ValueError, TypeError):
+    #         return jsonify({'error': 'Invalid input. Please enter valid numbers.'})
 
     return render_template('Clustering_BreastCancer.html')

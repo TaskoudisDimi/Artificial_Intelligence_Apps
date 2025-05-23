@@ -14,22 +14,49 @@
         <h2>Predict House Price</h2>
         <p>Provide the house measurements to predict the price.</p>
         <div class="form-container">
-            <form action="{{ url_for('routes.RegressionHouse') }}" method="post">
+            <form action="{{ url_for('regression.regression_House') }}" method="post">
                 <div class="form-group">
-                    <label for="square_footage">Square Footage</label>
-                    <input type="text" id="square_footage" name="square_footage" placeholder="e.g., 2000" required>
+                    <label for="med_inc">Median Income ($10,000s)</label>
+                    <input type="text" id="med_inc" name="med_inc" placeholder="e.g., 8.3252" required>
                 </div>
                 <div class="form-group">
-                    <label for="bedrooms">Number of Bedrooms</label>
-                    <input type="text" id="bedrooms" name="bedrooms" placeholder="e.g., 3" required>
+                    <label for="house_age">House Age (years)</label>
+                    <input type="text" id="house_age" name="house_age" placeholder="e.g., 41" required>
                 </div>
                 <div class="form-group">
-                    <label for="bathrooms">Number of Bathrooms</label>
-                    <input type="text" id="bathrooms" name="bathrooms" placeholder="e.g., 2" required>
+                    <label for="ave_rooms">Average Rooms per Household</label>
+                    <input type="text" id="ave_rooms" name="ave_rooms" placeholder="e.g., 6.9841" required>
                 </div>
                 <div class="form-group">
-                    <label for="year_built">Year Built</label>
-                    <input type="text" id="year_built" name="year_built" placeholder="e.g., 1990" required>
+                    <label for="ave_bedrms">Average Bedrooms per Household</label>
+                    <input type="text" id="ave_bedrms" name="ave_bedrms" placeholder="e.g., 1.0238" required>
+                </div>
+                <div class="form-group">
+                    <label for="population">Population</label>
+                    <input type="text" id="population" name="population" placeholder="e.g., 322" required>
+                </div>
+                <div class="form-group">
+                    <label for="ave_occup">Average Occupancy</label>
+                    <input type="text" id="ave_occup" name="ave_occup" placeholder="e.g., 2.5556" required>
+                </div>
+                <div class="form-group">
+                    <label for="latitude">Latitude</label>
+                    <input type="text" id="latitude" name="latitude" placeholder="e.g., 37.88" required>
+                </div>
+                <div class="form-group">
+                    <label for="longitude">Longitude</label>
+                    <input type="text" id="longitude" name="longitude" placeholder="e.g., -122.23" required>
+                </div>
+                <div class="form-group">
+                    <label for="ocean_proximity">Ocean Proximity</label>
+                    <select id="ocean_proximity" name="ocean_proximity" required>
+                        <option value="" disabled selected>Select proximity</option>
+                        <option value="<1H OCEAN">&lt;1H OCEAN</option>
+                        <option value="INLAND">INLAND</option>
+                        <option value="NEAR OCEAN">NEAR OCEAN</option>
+                        <option value="NEAR BAY">NEAR BAY</option>
+                        <option value="ISLAND">ISLAND</option>
+                    </select>
                 </div>
                 <div class="buttons-container">
                     <button type="submit" class="cta-button">Predict</button>

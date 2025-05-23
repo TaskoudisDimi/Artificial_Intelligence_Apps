@@ -16,16 +16,12 @@ def classify_iris():
             return render_template('Classification_Iris.html', message=message)
 
         input_data = np.array([float(SepalLength), float(SepalWidth), float(PetalLength), float(PetalWidth)]).reshape(1, -1)
-        print(f"Input data: {input_data}")
         # Get models from app context
         models = current_app.models  
-        print(f"Models loaded: {models.keys()}")
         # Check if models are loaded
         if not models:
             message = "No models loaded. Please check the server configuration."
             return render_template('Classification_Iris.html', message=message)
-        # Choose model based on form input  
-        print(f"Form data: {request.form}")
         if 'SVM' in request.form:
             prediction = models["SVM_Iris_model"].predict(input_data)
         elif 'KNN' in request.form:

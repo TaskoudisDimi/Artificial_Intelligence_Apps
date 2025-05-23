@@ -12,9 +12,9 @@ def load_models_from_cloud(config):
         "KNearestCentroid_Iris_model": load_pickle_model_from_cloud(model_urls["KNearestCentroid_Iris_model"]),
         "KMeans_Iris_model": load_pickle_model_from_cloud(model_urls["KMeans_Iris_model"]),
         "KMeans_breast_cancer_model": load_pickle_model_from_cloud(model_urls["KMeans_breast_cancer_model"]),
-        "scaler": load_pickle_model_from_cloud(model_urls["scaler"]),
+        "Clustering_Breast_Cancer": load_pickle_model_from_cloud(model_urls["Clustering_Breast_Cancer"]),
         "Regression_Iris_model": load_pickle_model_from_cloud(model_urls["Regression_Iris_model"]),
-        "Regression_House_model": load_pickle_model_from_cloud(model_urls["Regression_House_model"]),
+        "regression_house": load_pickle_model_from_cloud(model_urls["regression_house"]),
         "Cifar_model": load_torch_model_from_cloud(Net, model_urls["Cifar_model_filename"]),
         "Mnist_model": load_torch_model_from_cloud(Model, model_urls["Mnist_model"]),
     }
