@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Chatbot</h1>
-        <form id="chat-form">
-            <input type="text" id="user-input" placeholder="Type your message here..." required>
-            <button type="submit">Send</button>
-        </form>
-        <div id="chat-output"></div>
-    </div>
 
-    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Chatbot - AI App{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Chatbot</h1>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="form-container">
+            <h1>Chatbot</h1>
+            <form id="chat-form">
+                <input type="text" id="user-input" placeholder="Type your message here..." required>
+                <button type="submit">Send</button>
+            </form>
+            <div id="chat-output"></div>
+        </div>
+        <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+    </section>
+{% endblock %}
