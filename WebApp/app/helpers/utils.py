@@ -4,9 +4,14 @@ from PIL import ImageChops
 import os
 import gdown
 import joblib
-import torch
 from io import BytesIO
 import requests
+import gdown
+import joblib
+import os
+from pathlib import Path
+import tensorflow as tf
+
 
 def load_model(model_path):
     """Load a PyTorch model from the specified path."""
@@ -42,19 +47,6 @@ def center_image(img):
     shift_y = (top + (bottom - top) // 2) - h // 2
     return ImageChops.offset(img, -shift_x, -shift_y)
 
-# def load_pickle_model_from_cloud(model_url):
-#     """Load a pickle model directly from a cloud URL."""
-#     response = requests.get(model_url)
-#     if response.status_code == 200:
-#         return joblib.load(BytesIO(response.content))
-#     else:
-#         raise Exception(f"Failed to load model from {model_url}. Status code: {response.status_code}")
-
-import gdown
-import joblib
-import os
-from pathlib import Path
-
 def load_pickle_model_from_cloud(model_url, cache_dir="downloaded_models"):
     """Load a pickle model directly from a cloud URL using gdown."""
     try:
@@ -84,3 +76,5 @@ def load_torch_model_from_cloud(model_class, model_url, device="cpu"):
         return model
     else:
         raise Exception(f"Failed to load model from {model_url}. Status code: {response.status_code}")
+    
+

@@ -2,6 +2,7 @@ import os
 from .utils import load_torch_model_from_cloud, load_pickle_model_from_cloud
 from Old_Models.Cifar.Net import Net
 from Old_Models.Mnist.model import Model
+from transformers import BlenderbotForConditionalGeneration
 
 def load_models_from_cloud(config):
     model_urls = config.get('GDRIVE_IDS', {})
@@ -16,7 +17,7 @@ def load_models_from_cloud(config):
         "Regression_Iris_model": load_pickle_model_from_cloud(model_urls["Regression_Iris_model"]),
         "regression_house": load_pickle_model_from_cloud(model_urls["regression_house"]),
         "Cifar_model": load_torch_model_from_cloud(Net, model_urls["Cifar_model_filename"]),
-        "Mnist_model": load_torch_model_from_cloud(Model, model_urls["Mnist_model"]),
+        "Mnist_model": load_torch_model_from_cloud(Model, model_urls["Mnist_model"]), 
     }
     print("Loaded model URLs:", model_urls)
 

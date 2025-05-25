@@ -18,6 +18,5 @@ class Config:
         "regression_house": "https://drive.google.com/uc?id=1dwi0NbPU66mFcj2Vq_v5zxBIHyb3cKXE",
         "Cifar_model_filename": "https://drive.google.com/uc?id=1jmO3pah-IfGqH_kzySgSLVWpOXy4SYTu",
         "Mnist_model": "https://drive.google.com/uc?id=1hOyDxX5vglHOYWhNItk4I4cy9on2UJ_4",
-        # "Activity_Recognize": "https://drive.google.com/122RG_xW7_h9e0lkwkBZQpgFtgSWqChHZ",
     }
     

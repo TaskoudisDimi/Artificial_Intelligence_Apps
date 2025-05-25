@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./TrainedModels/CNN/ActivityRecognition/main_py"
+    ]
+}
